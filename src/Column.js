@@ -7,9 +7,10 @@ const Column = (props) =>
             <input type='text' value={props.name}></input>
         </div>
         <div className='card-container'>
-            <Card name='Do something'/>
-            <Card name='Do something'/>
-            <Card name='Do something'/>
+            <Card name='Do something' comments='5'/>
+            <Card name='Do something' comments='5'/>
+            <Card name='Do something' comments='5'/>
+            <button>Add another card</button>
         </div>
     </div>
 
