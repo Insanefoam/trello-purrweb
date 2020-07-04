@@ -10,19 +10,51 @@ class App extends React.Component {
       columns: [
         {
           name: 'TODO',
-          cards: ['Watch something', 'Eat something']
+          cards: [{
+            name: 'Watch something',
+            comments: ['Ayy lmao', 'Some comment']
+          },
+          {
+            name: 'Eat something',
+            comments: ['Ayy lmao', 'Some comment']
+          }
+          ]
         },
         {
           name: 'In Progress',
-          cards: ['Testing Trello', 'Testing Cards']
+          cards: [{
+            name: 'Watch something',
+            comments: ['Ayy lmao', 'Some comment']
+          },
+          {
+            name: 'Eat something',
+            comments: ['Ayy lmao', 'Some comment']
+          }
+          ]
         },
         {
           name: 'Testing',
-          cards: ['Trello', 'Cards']
+          cards: [{
+            name: 'Watch something',
+            comments: ['Ayy lmao', 'Some comment']
+          },
+          {
+            name: 'Eat something',
+            comments: ['Ayy lmao', 'Some comment']
+          }
+          ]
         },
         {
           name: 'Done',
-          cards: ['Lorem', 'ipsum']
+          cards: [{
+            name: 'Watch something',
+            comments: ['Ayy lmao', 'Some comment']
+          },
+          {
+            name: 'Eat something',
+            comments: ['Ayy lmao', 'Some comment']
+          }
+          ]
         }
       ],
       //start: true,
@@ -34,6 +66,7 @@ class App extends React.Component {
     this.submitAuthorNameHandler = this.submitAuthorNameHandler.bind(this);
     this.changeAuthorNameHandler = this.changeAuthorNameHandler.bind(this);
     this.cardClickHandler = this.cardClickHandler.bind(this);
+    this.cardCloseHandler = this.cardCloseHandler.bind(this);
   }
 
   submitAuthorNameHandler(event) {
@@ -56,33 +89,44 @@ class App extends React.Component {
     })
   }
 
+  cardCloseHandler() {
+    this.setState({
+      isCardClicked: false
+    })
+  }
+
   render() {
     const columns = this.state.columns.map((el, index) =>
       <Column name={el.name} cards={el.cards} key={index}
         cardClickHandler={this.cardClickHandler.bind(this, index)} />);
 
-    let firstPopUp = null;
+        let firstPopUp = null;
     if (this.state.start) {
-      firstPopUp = <LoginForm
-        submitAuthorNameHandler={this.submitAuthorNameHandler}
-        changeAuthorNameHandler={this.changeAuthorNameHandler} />
-    };
+          firstPopUp = <LoginForm
+            submitAuthorNameHandler={this.submitAuthorNameHandler}
+            changeAuthorNameHandler={this.changeAuthorNameHandler} />
+        };
 
     let cardPopup = null;
     if (this.state.isCardClicked) {
-      cardPopup = <CardPopup />
-    }
+          cardPopup = <CardPopup 
+            cardName={this.state.columns[this.state.clickedColumn].cards[this.state.clickedCard].name}
+            columnName={this.state.columns[this.state.clickedColumn].name}
+            author={this.state.author}
+            comments={this.state.columns[this.state.clickedColumn].cards[this.state.clickedCard].comments}
+            cardCloseHandler={this.cardCloseHandler}/>
+        }
 
     return (
       <div className='container' style={{ fontFamily: 'Montserrat' }}>
-        {firstPopUp}
-        {cardPopup}
-        <div>Hello {this.state.author}</div>
-        <div className='title' style={{ textAlign: 'center', marginBottom: '30px' }}>Trello</div>
-        <div className='column-wrapper' style={{ display: 'flex', justifyContent: 'space-around' }}>
-          {columns}
+          {firstPopUp}
+          {cardPopup}
+          <div>Hello {this.state.author}</div>
+          <div className='title' style={{ textAlign: 'center', marginBottom: '30px' }}>Trello</div>
+          <div className='column-wrapper' style={{ display: 'flex', justifyContent: 'space-around' }}>
+            {columns}
+          </div>
         </div>
-      </div>
     );
   }
 }

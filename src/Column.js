@@ -39,7 +39,7 @@ class Column extends React.Component {
 
     render() {
         const cards = this.state.cards.map((el, index) =>
-            <Card name={el} comments={index} key={index}
+            <Card name={el.name} comments={el.comments.length} key={index}
                 cardClickHandler={this.state.cardClickHandler.bind(this, index)} />);
 
         return (
