@@ -13,7 +13,7 @@ const CardPopup = (props) => {
     return (
         <div style={style}>
             <button onClick={props.cardCloseHandler}>Close</button>
-            <input value={props.cardName}></input>
+            <input value={props.cardName} onChange={props.cardNameChangeHandler}></input>
             <div>{props.columnName} column</div>
             <div>{props.author} Author</div>
             <button>Delete</button>
