@@ -29,6 +29,7 @@ class App extends React.Component {
     }
     this.submitAuthorNameHandler = this.submitAuthorNameHandler.bind(this);
     this.changeAuthorNameHandler = this.changeAuthorNameHandler.bind(this);
+    this.cardClickHandler = this.cardClickHandler.bind(this);
   }
 
   submitAuthorNameHandler(event) {
@@ -41,6 +42,10 @@ class App extends React.Component {
     this.setState({
       author: event.target.value
     })
+  }
+
+  cardClickHandler(event) {
+
   }
 
   render() {
