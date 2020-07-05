@@ -57,20 +57,24 @@ class App extends React.Component {
           ]
         }
       ],
-      newCardName: '',
+      newCardName: [],
       //start: true,
       author: '',
       isCardClicked: false,
       clickedColumn: '',
       clickedCard: ''
     }
+
     this.submitAuthorNameHandler = this.submitAuthorNameHandler.bind(this);
     this.addNewCardClickHandler = this.addNewCardClickHandler.bind(this);
+    this.changeNewCardNameHandler = this.changeNewCardNameHandler.bind(this);
     this.changeAuthorNameHandler = this.changeAuthorNameHandler.bind(this);
     this.cardClickHandler = this.cardClickHandler.bind(this);
     this.cardCloseHandler = this.cardCloseHandler.bind(this);
     this.cardNameChangeHandler = this.cardNameChangeHandler.bind(this);
   }
+
+  //TODO: addNewCardClickHandler
 
   submitAuthorNameHandler(event) {
     this.setState({
@@ -86,20 +90,28 @@ class App extends React.Component {
     })
   }
 
-  changeNewCardNameHandler(event) {
+  changeNewCardNameHandler(index, event) {
+    let newCardName = [...this.state.newCardName];
+    newCardName[index] = event.target.value;
     this.setState({
-      newCardName: event.target.value
+      newCardName
     })
   }
 
 
-  addNewCardClickHandler(event) {
-    let newCard = this.state.newCardName;
-    const cards = [...this.state.cards];
-    cards.push(newCard);
+  addNewCardClickHandler(index, event) {
+    let newCard = {
+      name: this.state.newCardName[index],
+      comments: []
+    }
+    const columns = [...this.state.columns];
+    columns[index].cards.push(newCard);
+
+    let newCardName = [...this.state.newCardName];
+    newCardName[index] = '';
     this.setState({
-      newCardName: '',
-      cards
+      columns,
+      newCardName
     })
   }
 
@@ -132,9 +144,11 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(this.state.newCardName);
     const columns = this.state.columns.map((el, index) =>
-      <Column name={el.name} cards={el.cards} key={index}
+      <Column name={el.name} cards={el.cards} key={index} newCardName={this.state.newCardName[index]}
         cardClickHandler={this.cardClickHandler.bind(this, index)}
+        changeNewCardNameHandler={this.changeNewCardNameHandler.bind(this, index)}
         addNewCardClickHandler={this.addNewCardClickHandler.bind(this, index)}
         changeColumnTitleHandler={this.changeColumnTitleHandler.bind(this, index)} />);
 
