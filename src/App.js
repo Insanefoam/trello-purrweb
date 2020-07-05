@@ -57,7 +57,7 @@ class App extends React.Component {
           ]
         }
       ],
-      newCardName: [],
+      newCardsName: [],
       //start: true,
       author: '',
       isCardClicked: false,
@@ -91,27 +91,27 @@ class App extends React.Component {
   }
 
   changeNewCardNameHandler(index, event) {
-    let newCardName = [...this.state.newCardName];
-    newCardName[index] = event.target.value;
+    let newCardsName = [...this.state.newCardsName];
+    newCardsName[index] = event.target.value;
     this.setState({
-      newCardName
+      newCardsName
     })
   }
 
 
   addNewCardClickHandler(index, event) {
     let newCard = {
-      name: this.state.newCardName[index],
+      name: this.state.newCardsName[index],
       comments: []
     }
     const columns = [...this.state.columns];
     columns[index].cards.push(newCard);
 
-    let newCardName = [...this.state.newCardName];
-    newCardName[index] = '';
+    let newCardsName = [...this.state.newCardsName];
+    newCardsName[index] = '';
     this.setState({
       columns,
-      newCardName
+      newCardsName
     })
   }
 
@@ -144,9 +144,8 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.newCardName);
     const columns = this.state.columns.map((el, index) =>
-      <Column name={el.name} cards={el.cards} key={index} newCardName={this.state.newCardName[index]}
+      <Column name={el.name} cards={el.cards} key={index} newCardName={this.state.newCardsName[index]}
         cardClickHandler={this.cardClickHandler.bind(this, index)}
         changeNewCardNameHandler={this.changeNewCardNameHandler.bind(this, index)}
         addNewCardClickHandler={this.addNewCardClickHandler.bind(this, index)}
