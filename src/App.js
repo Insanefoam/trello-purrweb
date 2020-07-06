@@ -16,12 +16,12 @@ class App extends React.Component {
           name: 'TODO',
           cards: [{
             name: 'Watch something',
-            comments: ['Ayy lmao', 'Some comment'],
+            comments: [{ name: 'Ayy lmao', author: 'Author' }, { name: 'Some comment', author: 'Author' }],
             description: 'No description'
           },
           {
             name: 'Eat something',
-            comments: ['Ayy lmao', 'Some comment'],
+            comments: [{ name: 'Ayy lmao', author: 'Author' }, { name: 'Some comment', author: 'Author' }],
             description: 'No description'
           }
           ]
@@ -30,12 +30,12 @@ class App extends React.Component {
           name: 'In Progress',
           cards: [{
             name: 'Watch something',
-            comments: ['Ayy lmao', 'Some comment'],
+            comments: [{ name: 'Ayy lmao', author: 'Author' }, { name: 'Some comment', author: 'Author' }],
             description: 'No description'
           },
           {
             name: 'Eat something',
-            comments: ['Ayy lmao', 'Some comment'],
+            comments: [{ name: 'Ayy lmao', author: 'Author' }, { name: 'Some comment', author: 'Author' }],
             description: 'No description'
           }
           ]
@@ -44,12 +44,12 @@ class App extends React.Component {
           name: 'Testing',
           cards: [{
             name: 'Watch something',
-            comments: ['Ayy lmao', 'Some comment'],
+            comments: [{ name: 'Ayy lmao', author: 'Author' }, { name: 'Some comment', author: 'Author' }],
             description: 'No description'
           },
           {
             name: 'Eat something',
-            comments: ['Ayy lmao', 'Some comment'],
+            comments: [{ name: 'Ayy lmao', author: 'Author' }, { name: 'Some comment', author: 'Author' }],
             description: 'No description'
           }
           ]
@@ -58,12 +58,12 @@ class App extends React.Component {
           name: 'Done',
           cards: [{
             name: 'Watch something',
-            comments: ['Ayy lmao', 'Some comment'],
+            comments: [{ name: 'Ayy lmao', author: 'Author' }, { name: 'Some comment', author: 'Author' }],
             description: 'No description'
           },
           {
             name: 'Eat something',
-            comments: ['Ayy lmao'],
+            comments: [{ name: 'Ayy lmao', author: 'Author' }],
             description: 'No description'
           }
           ]
@@ -85,6 +85,8 @@ class App extends React.Component {
     this.cardCloseHandler = this.cardCloseHandler.bind(this);
     this.cardNameChangeHandler = this.cardNameChangeHandler.bind(this);
     this.deleteCardHandler = this.deleteCardHandler.bind(this);
+    this.changeCardDescriptionHandler = this.changeCardDescriptionHandler.bind(this);
+    this.deleteCommentHandler = this.deleteCommentHandler.bind(this);
   }
 
   submitAuthorNameHandler(event) {
@@ -108,7 +110,6 @@ class App extends React.Component {
       newCardsName
     })
   }
-
 
   addNewCardClickHandler(index, event) {
     let newCard = {
@@ -154,15 +155,31 @@ class App extends React.Component {
     })
   }
 
-  deleteCardHandler(column, card, event) {
+  deleteCardHandler(event) {
     let columns = [...this.state.columns];
-    columns[column].cards.splice(card, 1);
+    columns[this.state.clickedColumn].cards.splice(this.state.clickedCard, 1);
     this.setState({
       columns,
       isCardClicked: false,
       clickedCard: '',
       clickedColumn: ''
-    }) 
+    })
+  }
+
+  changeCardDescriptionHandler(event) {
+    let columns = [...this.state.columns];
+    columns[this.state.clickedColumn].cards[this.state.clickedCard].description = event.target.value;
+    this.setState({
+      columns
+    })
+  }
+
+  deleteCommentHandler(index, event) {
+    let columns = [...this.state.columns];
+    columns[this.state.clickedColumn].cards[this.state.clickedCard].comments.splice(index, 1);
+    this.setState({
+      columns
+    })
   }
 
   render() {
@@ -189,8 +206,9 @@ class App extends React.Component {
         description={this.state.columns[this.state.clickedColumn].cards[this.state.clickedCard].description}
         comments={this.state.columns[this.state.clickedColumn].cards[this.state.clickedCard].comments}
         cardCloseHandler={this.cardCloseHandler}
-        cardNameChangeHandler={this.cardNameChangeHandler} 
-        deleteCardHandler={this.deleteCardHandler.bind(this, this.state.clickedColumn, this.state.clickedCard)}/>;
+        cardNameChangeHandler={this.cardNameChangeHandler}
+        deleteCardHandler={this.deleteCardHandler}
+        changeCardDescriptionHandler={this.changeCardDescriptionHandler} />;
     }
 
     return (
