@@ -18,7 +18,8 @@ const CardPopup = (props) => {
             </button>
             <span>Author: {el.author}</span>
         </div>
-    )
+    );
+
     return (
         <div style={style}>
             <button onClick={props.cardCloseHandler}>Close</button>
@@ -29,8 +30,8 @@ const CardPopup = (props) => {
             <input value={props.description} onChange={props.changeCardDescriptionHandler}></input>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 {comments}
-                <input></input>
-                <button>Add comment</button>
+                <input onChange={props.changeNewCommentaryHandler} value={props.newComment}></input>
+                <button onClick={props.addNewCommentaryHandler}>Add comment</button>
             </div>
         </div>
     )

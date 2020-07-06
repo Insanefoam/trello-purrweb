@@ -74,7 +74,8 @@ class App extends React.Component {
       author: '',
       isCardClicked: false,
       clickedColumn: '',
-      clickedCard: ''
+      clickedCard: '',
+      newComment: ''
     }
 
     this.submitAuthorNameHandler = this.submitAuthorNameHandler.bind(this);
@@ -88,6 +89,8 @@ class App extends React.Component {
     this.changeCardDescriptionHandler = this.changeCardDescriptionHandler.bind(this);
     this.deleteCommentHandler = this.deleteCommentHandler.bind(this);
     this.changeCommentaryHandler = this.changeCommentaryHandler.bind(this);
+    this.changeNewCommentaryHandler = this.changeNewCommentaryHandler.bind(this);
+    this.addNewCommentaryHandler = this.addNewCommentaryHandler.bind(this);
   }
 
   submitAuthorNameHandler(event) {
@@ -191,6 +194,27 @@ class App extends React.Component {
     })
   }
 
+  changeNewCommentaryHandler(event) {
+    this.setState({
+      newComment: event.target.value
+    })
+    console.log(this.state);
+  }
+
+  addNewCommentaryHandler(event) {
+    console.log(this.state.newComment);
+    let comment = {
+      name: this.state.newComment,
+      author: this.state.author
+    }
+    let columns = [...this.state.columns];
+    columns[this.state.clickedColumn].cards[this.state.clickedCard].comments.push(comment);
+    this.setState({
+      columns,
+      newComment: ''
+    })
+  }
+
   render() {
     const columns = this.state.columns.map((el, index) =>
       <Column name={el.name} cards={el.cards} key={index} newCardName={this.state.newCardsName[index]}
@@ -214,12 +238,15 @@ class App extends React.Component {
         author={this.state.author}
         description={this.state.columns[this.state.clickedColumn].cards[this.state.clickedCard].description}
         comments={this.state.columns[this.state.clickedColumn].cards[this.state.clickedCard].comments}
+        newComment={this.state.newComment}
         cardCloseHandler={this.cardCloseHandler}
         cardNameChangeHandler={this.cardNameChangeHandler}
         deleteCardHandler={this.deleteCardHandler}
-        changeCardDescriptionHandler={this.changeCardDescriptionHandler} 
+        changeCardDescriptionHandler={this.changeCardDescriptionHandler}
         deleteCommentHandler={this.deleteCommentHandler}
-        changeCommentaryHandler={this.changeCommentaryHandler}/>;
+        changeCommentaryHandler={this.changeCommentaryHandler}
+        changeNewCommentaryHandler={this.changeNewCommentaryHandler} 
+        addNewCommentaryHandler={this.addNewCommentaryHandler}/>;
     }
 
     return (
