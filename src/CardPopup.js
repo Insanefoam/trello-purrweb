@@ -9,7 +9,7 @@ const style = {
 };
 
 const CardPopup = (props) => {
-    const comments = props.comments.map((el) => <input value={el}></input>)
+    const comments = props.comments.map((el) => <input value={el} style={{width: '300px'}}></input>)
     return (
         <div style={style}>
             <button onClick={props.cardCloseHandler}>Close</button>
@@ -17,8 +17,8 @@ const CardPopup = (props) => {
             <div>{props.columnName} column</div>
             <div>{props.author} Author</div>
             <button>Delete</button>
-            <input value='Description'></input>
-            <div>
+            <input value={props.description}></input>
+            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                 {comments}
             </div>
         </div>

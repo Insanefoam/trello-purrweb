@@ -3,6 +3,11 @@ import Column from './Column';
 import LoginForm from './LoginForm';
 import CardPopup from './CardPopup';
 
+//TODO: Delete card feature
+//TODO: Add/delete/change card description
+//TODO: Add comments to card
+//TODO: Add styles
+
 class App extends React.Component {
   constructor() {
     super();
@@ -12,11 +17,13 @@ class App extends React.Component {
           name: 'TODO',
           cards: [{
             name: 'Watch something',
-            comments: ['Ayy lmao', 'Some comment']
+            comments: ['Ayy lmao', 'Some comment'],
+            description: 'No description'
           },
           {
             name: 'Eat something',
-            comments: ['Ayy lmao', 'Some comment']
+            comments: ['Ayy lmao', 'Some comment'],
+            description: 'No description'
           }
           ]
         },
@@ -24,11 +31,13 @@ class App extends React.Component {
           name: 'In Progress',
           cards: [{
             name: 'Watch something',
-            comments: ['Ayy lmao', 'Some comment']
+            comments: ['Ayy lmao', 'Some comment'],
+            description: 'No description'
           },
           {
             name: 'Eat something',
-            comments: ['Ayy lmao', 'Some comment']
+            comments: ['Ayy lmao', 'Some comment'],
+            description: 'No description'
           }
           ]
         },
@@ -36,11 +45,13 @@ class App extends React.Component {
           name: 'Testing',
           cards: [{
             name: 'Watch something',
-            comments: ['Ayy lmao', 'Some comment']
+            comments: ['Ayy lmao', 'Some comment'],
+            description: 'No description'
           },
           {
             name: 'Eat something',
-            comments: ['Ayy lmao', 'Some comment']
+            comments: ['Ayy lmao', 'Some comment'],
+            description: 'No description'
           }
           ]
         },
@@ -48,11 +59,13 @@ class App extends React.Component {
           name: 'Done',
           cards: [{
             name: 'Watch something',
-            comments: ['Ayy lmao', 'Some comment']
+            comments: ['Ayy lmao', 'Some comment'],
+            description: 'No description'
           },
           {
             name: 'Eat something',
-            comments: ['Ayy lmao', 'Some comment']
+            comments: ['Ayy lmao'],
+            description: 'No description'
           }
           ]
         }
@@ -73,8 +86,6 @@ class App extends React.Component {
     this.cardCloseHandler = this.cardCloseHandler.bind(this);
     this.cardNameChangeHandler = this.cardNameChangeHandler.bind(this);
   }
-
-  //TODO: addNewCardClickHandler
 
   submitAuthorNameHandler(event) {
     this.setState({
@@ -164,6 +175,7 @@ class App extends React.Component {
         cardName={this.state.columns[this.state.clickedColumn].cards[this.state.clickedCard].name}
         columnName={this.state.columns[this.state.clickedColumn].name}
         author={this.state.author}
+        description={this.state.columns[this.state.clickedColumn].cards[this.state.clickedCard].description}
         comments={this.state.columns[this.state.clickedColumn].cards[this.state.clickedCard].comments}
         cardCloseHandler={this.cardCloseHandler}
         cardNameChangeHandler={this.cardNameChangeHandler} />;
