@@ -16,10 +16,12 @@ const CardPopup = (props) => {
             <input value={props.cardName} onChange={props.cardNameChangeHandler}></input>
             <div>{props.columnName} column</div>
             <div>{props.author} Author</div>
-            <button>Delete</button>
+            <button onClick={props.deleteCardHandler}>Delete</button>
             <input value={props.description}></input>
             <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                 {comments}
+                <input></input>
+                <button>Add comment</button>
             </div>
         </div>
     )

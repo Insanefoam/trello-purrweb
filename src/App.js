@@ -3,7 +3,6 @@ import Column from './Column';
 import LoginForm from './LoginForm';
 import CardPopup from './CardPopup';
 
-//TODO: Delete card feature
 //TODO: Add/delete/change card description
 //TODO: Add comments to card
 //TODO: Add styles
@@ -85,6 +84,7 @@ class App extends React.Component {
     this.cardClickHandler = this.cardClickHandler.bind(this);
     this.cardCloseHandler = this.cardCloseHandler.bind(this);
     this.cardNameChangeHandler = this.cardNameChangeHandler.bind(this);
+    this.deleteCardHandler = this.deleteCardHandler.bind(this);
   }
 
   submitAuthorNameHandler(event) {
@@ -154,6 +154,17 @@ class App extends React.Component {
     })
   }
 
+  deleteCardHandler(column, card, event) {
+    let columns = [...this.state.columns];
+    columns[column].cards.splice(card, 1);
+    this.setState({
+      columns,
+      isCardClicked: false,
+      clickedCard: '',
+      clickedColumn: ''
+    }) 
+  }
+
   render() {
     const columns = this.state.columns.map((el, index) =>
       <Column name={el.name} cards={el.cards} key={index} newCardName={this.state.newCardsName[index]}
@@ -178,7 +189,8 @@ class App extends React.Component {
         description={this.state.columns[this.state.clickedColumn].cards[this.state.clickedCard].description}
         comments={this.state.columns[this.state.clickedColumn].cards[this.state.clickedCard].comments}
         cardCloseHandler={this.cardCloseHandler}
-        cardNameChangeHandler={this.cardNameChangeHandler} />;
+        cardNameChangeHandler={this.cardNameChangeHandler} 
+        deleteCardHandler={this.deleteCardHandler.bind(this, this.state.clickedColumn, this.state.clickedCard)}/>;
     }
 
     return (
