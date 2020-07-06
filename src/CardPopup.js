@@ -21,12 +21,13 @@ const CardPopup = (props) => {
     );
 
     return (
-        <div style={style}>
+        <div style={style} tabIndex='0'
+            onKeyDown={(event) => event.key === 'Escape' ? props.cardCloseHandler() : undefined}>
             <button onClick={props.cardCloseHandler}>Close</button>
             <input value={props.cardName} onChange={props.cardNameChangeHandler}></input>
             <div>{props.columnName} column</div>
             <div>{props.author} Author</div>
-            <button onClick={props.deleteCardHandler}>Delete</button>
+            <button onClick={props.deleteCardHandler}>Delete card</button>
             <input value={props.description} onChange={props.changeCardDescriptionHandler}></input>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 {comments}

@@ -4,8 +4,8 @@ import LoginForm from './LoginForm';
 import CardPopup from './CardPopup';
 
 //TODO: Add/delete/change card description
-//TODO: Add comments to card
 //TODO: Add styles
+//TODO: reverse card -> column depend
 
 class App extends React.Component {
   constructor() {
@@ -13,68 +13,65 @@ class App extends React.Component {
     this.state = {
       columns: [
         {
+          columnId: 0,
           name: 'TODO',
-          cards: [{
-            name: 'Watch something',
-            comments: [{ name: 'Ayy lmao', author: 'Author' }, { name: 'Some comment', author: 'Author' }],
-            description: 'No description'
-          },
-          {
-            name: 'Eat something',
-            comments: [{ name: 'Ayy lmao', author: 'Author' }, { name: 'Some comment', author: 'Author' }],
-            description: 'No description'
-          }
-          ]
+          cards: [0, 1]
         },
         {
-          name: 'In Progress',
-          cards: [{
-            name: 'Watch something',
-            comments: [{ name: 'Ayy lmao', author: 'Author' }, { name: 'Some comment', author: 'Author' }],
-            description: 'No description'
-          },
-          {
-            name: 'Eat something',
-            comments: [{ name: 'Ayy lmao', author: 'Author' }, { name: 'Some comment', author: 'Author' }],
-            description: 'No description'
-          }
-          ]
+          columnId: 1,
+          name: 'In progress',
+          cards: [2]
+        }
+      ],
+      cards: [
+        {
+          cardId: 0,
+          name: 'Watch something',
+          description: 'No description',
+          comments: [0],
+          columndId: 0
         },
         {
-          name: 'Testing',
-          cards: [{
-            name: 'Watch something',
-            comments: [{ name: 'Ayy lmao', author: 'Author' }, { name: 'Some comment', author: 'Author' }],
-            description: 'No description'
-          },
-          {
-            name: 'Eat something',
-            comments: [{ name: 'Ayy lmao', author: 'Author' }, { name: 'Some comment', author: 'Author' }],
-            description: 'No description'
-          }
-          ]
+          cardId: 1,
+          name: 'Eat something',
+          description: 'No description',
+          comments: [1],
+          columndId: 0
         },
         {
-          name: 'Done',
-          cards: [{
-            name: 'Watch something',
-            comments: [{ name: 'Ayy lmao', author: 'Author' }, { name: 'Some comment', author: 'Author' }],
-            description: 'No description'
-          },
-          {
-            name: 'Eat something',
-            comments: [{ name: 'Ayy lmao', author: 'Author' }],
-            description: 'No description'
-          }
-          ]
+          cardId: 2,
+          name: 'Todo something',
+          description: 'No description',
+          comments: [2],
+          columndId: 1
+        }
+      ],
+      comments: [
+        {
+          commentId: 0,
+          author: 'Author',
+          name: 'Ayy lmao',
+          cardId: 0
+        },
+        {
+          commentId: 1,
+          author: 'Author',
+          name: 'Ogo voteta da',
+          cardId: 1
+        },
+        {
+          commentId: 2,
+          author: 'Author',
+          name: 'Lorem comment',
+          cardId: 2
         }
       ],
       newCardsName: [],
       //start: true,
       author: '',
       isCardClicked: false,
-      clickedColumn: '',
-      clickedCard: '',
+      clickedColumn: -1,
+      clickedCard: -1,
       newComment: ''
     }
 
@@ -202,7 +199,6 @@ class App extends React.Component {
   }
 
   addNewCommentaryHandler(event) {
-    console.log(this.state.newComment);
     let comment = {
       name: this.state.newComment,
       author: this.state.author
@@ -217,15 +213,18 @@ class App extends React.Component {
 
   render() {
     const columns = this.state.columns.map((el, index) =>
-      <Column name={el.name} cards={el.cards} key={index} newCardName={this.state.newCardsName[index]}
-        cardClickHandler={this.cardClickHandler.bind(this, index)}
-        changeNewCardNameHandler={this.changeNewCardNameHandler.bind(this, index)}
-        addNewCardClickHandler={this.addNewCardClickHandler.bind(this, index)}
-        changeColumnTitleHandler={this.changeColumnTitleHandler.bind(this, index)} />);
+      <Column name={el.name}
+        cards={this.state.cards.filter((el) => index === el.columndId)}
+        key={index}
+        newCardName={this.state.newCardsName[index]}
+        cardClickHandler={() => this.cardClickHandler(index)}
+        changeNewCardNameHandler={(event) => this.changeNewCardNameHandler(index, event)}
+        addNewCardClickHandler={() => this.addNewCardClickHandler(index)}
+        changeColumnTitleHandler={() => this.changeColumnTitleHandler(index)} />);
 
-    let firstPopUp = null;
+    let inputAuthorPopup = null;
     if (this.state.start) {
-      firstPopUp = <LoginForm
+      inputAuthorPopup = <LoginForm
         submitAuthorNameHandler={this.submitAuthorNameHandler}
         changeAuthorNameHandler={this.changeAuthorNameHandler} />;
     };
@@ -239,19 +238,20 @@ class App extends React.Component {
         description={this.state.columns[this.state.clickedColumn].cards[this.state.clickedCard].description}
         comments={this.state.columns[this.state.clickedColumn].cards[this.state.clickedCard].comments}
         newComment={this.state.newComment}
+        ref={this.cardPopupRef}
         cardCloseHandler={this.cardCloseHandler}
         cardNameChangeHandler={this.cardNameChangeHandler}
         deleteCardHandler={this.deleteCardHandler}
         changeCardDescriptionHandler={this.changeCardDescriptionHandler}
         deleteCommentHandler={this.deleteCommentHandler}
         changeCommentaryHandler={this.changeCommentaryHandler}
-        changeNewCommentaryHandler={this.changeNewCommentaryHandler} 
-        addNewCommentaryHandler={this.addNewCommentaryHandler}/>;
+        changeNewCommentaryHandler={this.changeNewCommentaryHandler}
+        addNewCommentaryHandler={this.addNewCommentaryHandler} />;
     }
 
     return (
       <div className='container' style={{ fontFamily: 'Montserrat' }}>
-        {firstPopUp}
+        {inputAuthorPopup}
         {cardPopup}
         <div>Hello {this.state.author}</div>
         <div className='title' style={{ textAlign: 'center', marginBottom: '30px' }}>Trello</div>

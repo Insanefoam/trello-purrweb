@@ -8,11 +8,11 @@ const style = {
     textAlign: 'center'
 };
 
-const LoginForm = (props) =>
+const LoginForm = ({changeAuthorNameHandler, submitAuthorNameHandler}) =>
     <div style={style}>
         <div>Enter your name:</div>
-        <input type='text' onChange={props.changeAuthorNameHandler}></input>
-        <button onClick={props.submitAuthorNameHandler}>Submit</button>
+        <input type='text' onChange={changeAuthorNameHandler}></input>
+        <button onClick={submitAuthorNameHandler}>Submit</button>
     </div>
 
 export default LoginForm;
