@@ -9,10 +9,13 @@ const style = {
 };
 
 const CardPopup = (props) => {
-    const comments = props.comments.map((el) =>
+    const comments = props.comments.map((el, index) =>
         <div>
-            <input value={el.name} style={{ width: '300px' }}></input>
-            <button>Delete comment</button>
+            <input value={el.name} style={{ width: '300px' }}
+                onChange={props.changeCommentaryHandler.bind(this, index)}></input>
+            <button onClick={props.deleteCommentHandler.bind(this, index)}>
+                Delete comment
+            </button>
             <span>Author: {el.author}</span>
         </div>
     )

@@ -87,6 +87,7 @@ class App extends React.Component {
     this.deleteCardHandler = this.deleteCardHandler.bind(this);
     this.changeCardDescriptionHandler = this.changeCardDescriptionHandler.bind(this);
     this.deleteCommentHandler = this.deleteCommentHandler.bind(this);
+    this.changeCommentaryHandler = this.changeCommentaryHandler.bind(this);
   }
 
   submitAuthorNameHandler(event) {
@@ -182,6 +183,14 @@ class App extends React.Component {
     })
   }
 
+  changeCommentaryHandler(index, event) {
+    let columns = [...this.state.columns];
+    columns[this.state.clickedColumn].cards[this.state.clickedCard].comments[index].name = event.target.value;
+    this.setState({
+      columns
+    })
+  }
+
   render() {
     const columns = this.state.columns.map((el, index) =>
       <Column name={el.name} cards={el.cards} key={index} newCardName={this.state.newCardsName[index]}
@@ -208,7 +217,9 @@ class App extends React.Component {
         cardCloseHandler={this.cardCloseHandler}
         cardNameChangeHandler={this.cardNameChangeHandler}
         deleteCardHandler={this.deleteCardHandler}
-        changeCardDescriptionHandler={this.changeCardDescriptionHandler} />;
+        changeCardDescriptionHandler={this.changeCardDescriptionHandler} 
+        deleteCommentHandler={this.deleteCommentHandler}
+        changeCommentaryHandler={this.changeCommentaryHandler}/>;
     }
 
     return (
