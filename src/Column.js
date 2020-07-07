@@ -1,20 +1,20 @@
 import React from "react";
 import Card from "./Card";
 
-const Column = ({
+export default function Column({
   cards,
   title,
   inputTitleChangeHandler,
   changeNewCardNameHandler,
   newCardName,
   addNewCardClickHandler,
-}) => {
+}) {
   const cardsComponents = cards.map((el, index) => (
     <Card
       name={el.name}
-      comments={el.comments}
+      comments={el.commentsIds.length}
       key={index}
-      //cardClickHandler={props.cardClickHandler.bind(this, index)}
+    //cardClickHandler={props.cardClickHandler.bind(this, index)}
     />
   ));
 
@@ -42,6 +42,4 @@ const Column = ({
       </div>
     </div>
   );
-};
-
-export default Column;
+}

@@ -8,7 +8,7 @@ const style = {
     textAlign: 'center'
 };
 
-const LoginForm = ({changeAuthorNameHandler, submitAuthorNameHandler}) =>
+const LoginForm = ({ changeAuthorNameHandler, submitAuthorNameHandler }) =>
     <div style={style}>
         <div>Enter your name:</div>
         <input type='text' onChange={changeAuthorNameHandler}></input>

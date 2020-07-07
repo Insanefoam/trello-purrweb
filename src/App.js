@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import Column from "./Column";
-import LoginForm from "./LoginForm";
-import CardPopup from "./CardPopup";
+import React, { useState } from 'react';
+import Column from './Column';
+import LoginForm from './LoginForm';
+import CardPopup from './CardPopup';
 
 export default function App() {
   // this.state = {
@@ -196,20 +196,14 @@ export default function App() {
   //   );
   // }
 
-  const inputTitleChangeHandler = (index, event) => {
-    let newColumns = [...columns];
-    newColumns[index].title = event.target.value;
-    setColumns(newColumns);
-  };
-
   const [columns, setColumns] = useState([
     {
       columnId: 0,
-      title: "TODO",
+      title: 'TODO',
     },
     {
       columnId: 1,
-      title: "In progress",
+      title: 'In progress',
     },
   ]);
 
@@ -217,21 +211,31 @@ export default function App() {
     byId: [
       {
         cardId: 0,
-        name: "Watch something",
-        description: "No description",
+        name: 'Watch something',
+        description: 'No description',
         columndId: 0,
+        commentsIds: [0],
       },
       {
         cardId: 1,
-        name: "Eat something",
-        description: "No description",
+        name: 'Eat something',
+        description: 'No description',
         columndId: 0,
+        commentsIds: [1],
       },
       {
         cardId: 2,
-        name: "Todo something",
-        description: "No description",
+        name: 'Todo something',
+        description: 'No description',
         columndId: 1,
+        commentsIds: [2],
+      },
+      {
+        cardId: 3,
+        name: 'Lorem Ipsum',
+        description: 'No description',
+        columndId: 1,
+        commentsIds: [2],
       },
     ],
     allIds: [0, 1, 2],
@@ -240,36 +244,40 @@ export default function App() {
   const [comments, setComments] = useState([
     {
       commentId: 0,
-      author: "Author",
-      name: "Ayy lmao",
-      cardId: 0,
+      author: 'Author',
+      name: 'Ayy lmao',
+      id: '',
     },
     {
       commentId: 1,
-      author: "Author",
-      name: "Ogo voteta da",
-      cardId: 1,
+      author: 'Author',
+      name: 'Ogo voteta da',
     },
     {
       commentId: 2,
-      author: "Author",
-      name: "Lorem comment",
-      cardId: 2,
+      author: 'Author',
+      name: 'Lorem comment',
     },
   ]);
 
+  const inputTitleChangeHandler = (index, event) => {
+    let newColumns = [...columns];
+    newColumns[index].title = event.target.value;
+    setColumns(newColumns);
+  };
+
   return (
-    <div className="container" style={{ fontFamily: "Montserrat" }}>
+    <div className="container" style={{ fontFamily: 'Montserrat' }}>
       <div>Hello Author name</div>
       <div
         className="title"
-        style={{ textAlign: "center", marginBottom: "30px" }}
+        style={{ textAlign: 'center', marginBottom: '30px' }}
       >
         Trello
       </div>
       <div
         className="column-wrapper"
-        style={{ display: "flex", justifyContent: "space-around" }}
+        style={{ display: 'flex', justifyContent: 'space-around' }}
       >
         {columns.map((el, index) => (
           <Column
