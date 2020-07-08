@@ -4,16 +4,18 @@ import Card from './Card';
 
 export default function Column({
   cards,
+  comments,
   title,
-  inputTitleChangeHandler,
+  changeTitle,
   newCardButtonClickHandler,
+  cardClickHandler,
 }) {
-  const cardsComponents = cards.map((el) => (
+  const cardsComponents = cards.map((el, index) => (
     <Card
       name={el.name}
-      comments={el.commentsIds.length}
+      comments={comments[index]}
       key={el.cardId}
-    // cardClickHandler={props.cardClickHandler.bind(this, index)}
+      cardClickHandler={() => cardClickHandler(el.cardId)}
     />
   ));
 
@@ -30,7 +32,7 @@ export default function Column({
         <input
           type="text"
           value={title}
-          onChange={(event) => inputTitleChangeHandler(event.target.value)}
+          onChange={(event) => changeTitle(event.target.value)}
         />
       </div>
       <div className="card-container">
@@ -57,7 +59,9 @@ export default function Column({
 
 Column.propTypes = {
   cards: PropTypes.arrayOf(PropTypes.instanceOf(Card)).isRequired,
+  comments: PropTypes.arrayOf(PropTypes.number).isRequired,
   title: PropTypes.string.isRequired,
-  inputTitleChangeHandler: PropTypes.func.isRequired,
+  changeTitle: PropTypes.func.isRequired,
   newCardButtonClickHandler: PropTypes.func.isRequired,
+  cardClickHandler: PropTypes.func.isRequired,
 };

@@ -8,15 +8,14 @@ const style = {
   textAlign: 'center',
 };
 
-const CardPopup = (props) => {
-  const comments = props.comments.map((el, index) => (
+export default function CardPopup({ comments }) {
+  const commentsComponents = comments.map((el, index) => (
     <div>
       <input
         value={el.name}
         style={{ width: '300px' }}
-        onChange={props.changeCommentaryHandler.bind(this, index)}
       />
-      <button onClick={props.deleteCommentHandler.bind(this, index)}>
+      <button type="button">
         Delete comment
       </button>
       <span>
@@ -30,28 +29,24 @@ const CardPopup = (props) => {
     <div
       style={style}
       tabIndex="0"
-      onKeyDown={(event) => (event.key === 'Escape' ? props.cardCloseHandler() : undefined)}
     >
-      <button onClick={props.cardCloseHandler}>Close</button>
-      <input value={props.cardName} onChange={props.cardNameChangeHandler} />
+      <button>Close</button>
+      <input />
       <div>
-        {props.columnName}
         {' '}
         column
       </div>
       <div>
-        {props.author}
         {' '}
         Author
       </div>
-      <button onClick={props.deleteCardHandler}>Delete card</button>
-      <input value={props.description} onChange={props.changeCardDescriptionHandler} />
+      <button>Delete card</button>
+      <input />
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        {comments}
-        <input onChange={props.changeNewCommentaryHandler} value={props.newComment} />
-        <button onClick={props.addNewCommentaryHandler}>Add comment</button>
+        {commentsComponents}
+        <input />
+        <button>Add comment</button>
       </div>
     </div>
   );
-};
-export default CardPopup;
+}

@@ -214,28 +214,24 @@ export default function App() {
         name: 'Watch something',
         description: 'No description',
         columnId: 0,
-        commentsIds: [0],
       },
       {
         cardId: 1,
         name: 'Eat something',
         description: 'No description',
         columnId: 0,
-        commentsIds: [1],
       },
       {
         cardId: 2,
         name: 'Todo something',
         description: 'No description',
         columnId: 1,
-        commentsIds: [2],
       },
       {
         cardId: 3,
         name: 'Lorem Ipsum',
         description: 'No description',
         columndId: 1,
-        commentsIds: [2],
       },
     ],
   );
@@ -245,21 +241,26 @@ export default function App() {
       commentId: 0,
       author: 'Author',
       name: 'Ayy lmao',
-      id: '',
+      cardId: 0,
     },
     {
       commentId: 1,
       author: 'Author',
       name: 'Ogo voteta da',
+      cardId: 1,
     },
     {
       commentId: 2,
       author: 'Author',
       name: 'Lorem comment',
+      cardId: 2,
     },
   ]);
 
-  const inputTitleChangeHandler = (columnId, title) => {
+  const [isCardClicked, setIsCardClicked] = useState(false);
+  const [clickedCardId, setClickedCardId] = useState(-1);
+
+  const changeTitle = (columnId, title) => {
     setColumns(columns.map((el) => (el.columnId === columnId ? { columnId, title } : el)));
   };
 
@@ -270,8 +271,16 @@ export default function App() {
     }]);
   };
 
+  const cardClickHandler = (cardId) => {
+    setIsCardClicked(!isCardClicked);
+    setClickedCardId(cardId);
+  };
+
   return (
     <div className="container" style={{ fontFamily: 'Montserrat' }}>
+      {isCardClicked ? (
+        <CardPopup comments={comments.filter((comment) => comment.cardId === clickedCardId)} />
+      ) : null}
       <div>Hello Author name</div>
       <div
         className="title"
@@ -283,13 +292,15 @@ export default function App() {
         className="column-wrapper"
         style={{ display: 'flex', justifyContent: 'space-around' }}
       >
-        {columns.map((el) => (
+        {columns.map((column) => (
           <Column
-            title={el.title}
-            cards={cards.filter((card) => card.columnId === el.columnId)}
-            key={el.columnId}
-            inputTitleChangeHandler={(newName) => inputTitleChangeHandler(el.columnId, newName)}
-            newCardButtonClickHandler={(name) => newCardButtonClickHandler(el.columnId, name)}
+            title={column.title}
+            cards={cards.filter((card) => (card.columnId === column.columnId))}
+            comments={cards.filter((card) => (card.columnId === column.columnId)).map((card) => [...comments].filter((comment) => card.cardId === comment.cardId).length)}
+            key={column.columnId}
+            changeTitle={(newName) => changeTitle(column.columnId, newName)}
+            newCardButtonClickHandler={(name) => newCardButtonClickHandler(column.columnId, name)}
+            cardClickHandler={cardClickHandler}
           />
         ))}
       </div>
