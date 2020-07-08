@@ -78,9 +78,8 @@ export default function App() {
     setColumns(columns.map((el) => (el.columnId === columnId ? { columnId, title } : el)));
   };
 
-  // TODO: Add UUID
   // TODO: rename function
-  const newCardButtonClickHandler = (columnId, name) => {
+  const addNewCard = (columnId, name) => {
     setCards([...cards, {
       cardId: Date.now(), description: '', commentsIds: [], name, columnId, author: userName,
     }]);
@@ -173,7 +172,7 @@ export default function App() {
             comments={cards.filter((card) => (card.columnId === column.columnId)).map((card) => [...comments].filter((comment) => card.cardId === comment.cardId).length)}
             key={column.columnId}
             changeTitle={(newName) => changeTitle(column.columnId, newName)}
-            newCardButtonClickHandler={(name) => newCardButtonClickHandler(column.columnId, name)}
+            addNewCard={(name) => addNewCard(column.columnId, name)}
             cardClickHandler={cardClickHandler}
           />
         ))}

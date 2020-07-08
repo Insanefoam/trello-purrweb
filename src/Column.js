@@ -7,7 +7,7 @@ export default function Column({
   comments,
   title,
   changeTitle,
-  newCardButtonClickHandler,
+  addNewCard,
   cardClickHandler,
 }) {
   const cardsComponents = cards.map((el, index) => (
@@ -46,7 +46,7 @@ export default function Column({
         <button
           type="button"
           onClick={() => {
-            newCardButtonClickHandler(newCardName);
+            addNewCard(newCardName);
             setNewCardName('');
           }}
         >
@@ -62,6 +62,6 @@ Column.propTypes = {
   comments: PropTypes.arrayOf(PropTypes.number).isRequired,
   title: PropTypes.string.isRequired,
   changeTitle: PropTypes.func.isRequired,
-  newCardButtonClickHandler: PropTypes.func.isRequired,
+  addNewCard: PropTypes.func.isRequired,
   cardClickHandler: PropTypes.func.isRequired,
 };

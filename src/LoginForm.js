@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropsType from 'prop-types';
 
 const style = {
   position: 'absolute',
@@ -25,3 +26,7 @@ export default function LoginForm({ submitUserName }) {
     </div>
   );
 }
+
+LoginForm.propsType = {
+  submitUserName: PropsType.func.isRequired,
+};
