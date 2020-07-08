@@ -213,24 +213,28 @@ export default function App() {
         cardId: 0,
         name: 'Watch something',
         description: 'No description',
+        author: 'Card Author',
         columnId: 0,
       },
       {
         cardId: 1,
         name: 'Eat something',
         description: 'No description',
+        author: 'Card Author',
         columnId: 0,
       },
       {
         cardId: 2,
         name: 'Todo something',
         description: 'No description',
+        author: 'Card Author',
         columnId: 1,
       },
       {
         cardId: 3,
         name: 'Lorem Ipsum',
         description: 'No description',
+        author: 'Card Author',
         columndId: 1,
       },
     ],
@@ -276,10 +280,27 @@ export default function App() {
     setClickedCardId(cardId);
   };
 
+  const closeCardPopup = () => {
+    setIsCardClicked(!isCardClicked);
+    setClickedCardId(-1);
+  };
+
+  const changeCardName = (newName) => {
+    setCards([...cards].map((card) => (card.cardId === clickedCardId ? { ...card, name: newName } : card)));
+  };
+
+  const 
+
   return (
     <div className="container" style={{ fontFamily: 'Montserrat' }}>
       {isCardClicked ? (
-        <CardPopup comments={comments.filter((comment) => comment.cardId === clickedCardId)} />
+        <CardPopup
+          card={cards.filter((card) => card.cardId === clickedCardId)[0]}
+          comments={comments.filter((comment) => comment.cardId === clickedCardId)}
+          columnName={columns.filter((column) => column.columnId === clickedCardId)[0].title}
+          closeCardPopup={closeCardPopup}
+          changeCardName={changeCardName}
+        />
       ) : null}
       <div>Hello Author name</div>
       <div

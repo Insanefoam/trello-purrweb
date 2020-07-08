@@ -1,4 +1,5 @@
 import React from 'react';
+import PropsType from 'prop-types';
 
 const style = {
   position: 'absolute',
@@ -8,8 +9,11 @@ const style = {
   textAlign: 'center',
 };
 
-export default function CardPopup({ comments }) {
-  const commentsComponents = comments.map((el, index) => (
+export default function CardPopup({
+  card, comments, columnName, closeCardPopup,
+  changeCardName,
+}) {
+  const commentsComponents = comments.map((el) => (
     <div>
       <input
         value={el.name}
@@ -19,7 +23,7 @@ export default function CardPopup({ comments }) {
         Delete comment
       </button>
       <span>
-        Author:
+        Comment author:
         {el.author}
       </span>
     </div>
@@ -30,23 +34,28 @@ export default function CardPopup({ comments }) {
       style={style}
       tabIndex="0"
     >
-      <button>Close</button>
-      <input />
+      <button onClick={closeCardPopup} type="button">Close</button>
+      <input value={card.name} onChange={(event) => changeCardName(event.target.value)} />
       <div>
+        {columnName}
         {' '}
         column
       </div>
       <div>
-        {' '}
+        {card.author}
         Author
       </div>
       <button>Delete card</button>
-      <input />
+      <input className="card-description" value={card.description} />
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         {commentsComponents}
-        <input />
+        <input className="new-card-input" />
         <button>Add comment</button>
       </div>
     </div>
   );
 }
+
+CardPopup.propTypes = {
+
+};
