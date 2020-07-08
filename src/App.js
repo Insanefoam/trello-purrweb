@@ -235,7 +235,7 @@ export default function App() {
         name: 'Lorem Ipsum',
         description: 'No description',
         author: 'Card Author',
-        columndId: 1,
+        columnId: 1,
       },
     ],
   );
@@ -289,7 +289,11 @@ export default function App() {
     setCards([...cards].map((card) => (card.cardId === clickedCardId ? { ...card, name: newName } : card)));
   };
 
-  const 
+  const deleteCard = () => {
+    setCards([...cards].filter((card) => card.cardId !== clickedCardId));
+    setIsCardClicked(!isCardClicked);
+    setClickedCardId(-1);
+  };
 
   return (
     <div className="container" style={{ fontFamily: 'Montserrat' }}>
@@ -300,6 +304,7 @@ export default function App() {
           columnName={columns.filter((column) => column.columnId === clickedCardId)[0].title}
           closeCardPopup={closeCardPopup}
           changeCardName={changeCardName}
+          deleteCard={deleteCard}
         />
       ) : null}
       <div>Hello Author name</div>

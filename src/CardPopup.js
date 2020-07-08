@@ -12,6 +12,7 @@ const style = {
 export default function CardPopup({
   card, comments, columnName, closeCardPopup,
   changeCardName,
+  deleteCard,
 }) {
   const commentsComponents = comments.map((el) => (
     <div>
@@ -45,7 +46,7 @@ export default function CardPopup({
         {card.author}
         Author
       </div>
-      <button>Delete card</button>
+      <button onClick={deleteCard} type="button">Delete card</button>
       <input className="card-description" value={card.description} />
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         {commentsComponents}
