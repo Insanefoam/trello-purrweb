@@ -71,6 +71,8 @@ export default function App() {
 
   const [isCardClicked, setIsCardClicked] = useState(false);
   const [clickedCardId, setClickedCardId] = useState(-1);
+  const [isUserLogged, setUserLogged] = useState(false);
+  const [userName, setUserName] = useState('');
 
   const changeTitle = (columnId, title) => {
     setColumns(columns.map((el) => (el.columnId === columnId ? { columnId, title } : el)));
@@ -80,7 +82,7 @@ export default function App() {
   // TODO: rename function
   const newCardButtonClickHandler = (columnId, name) => {
     setCards([...cards, {
-      cardId: Date.now(), description: '', commentsIds: [], name, columnId,
+      cardId: Date.now(), description: '', commentsIds: [], name, columnId, author: userName,
     }]);
   };
 
@@ -123,12 +125,18 @@ export default function App() {
 
   const addComment = (name) => {
     setComments([...comments, {
-      commentId: Date.now(), author: 'Author', name, cardId: clickedCardId,
+      commentId: Date.now(), author: { userName }, name, cardId: clickedCardId,
     }]);
+  };
+
+  const submitUserName = (name) => {
+    setUserName(name);
+    setUserLogged(true);
   };
 
   return (
     <div className="container" style={{ fontFamily: 'Montserrat' }}>
+      {!isUserLogged ? <LoginForm submitUserName={submitUserName} /> : null}
       {isCardClicked ? (
         <CardPopup
           card={cards.filter((card) => card.cardId === clickedCardId)[0]}
@@ -143,7 +151,11 @@ export default function App() {
           addComment={addComment}
         />
       ) : null}
-      <div>Hello Author name</div>
+      <div>
+        Hello
+        {' '}
+        {userName}
+      </div>
       <div
         className="title"
         style={{ textAlign: 'center', marginBottom: '30px' }}

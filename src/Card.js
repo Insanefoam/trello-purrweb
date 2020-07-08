@@ -1,13 +1,13 @@
 import React from 'react';
 
-const Card = (props) => (
+const Card = ({ name, comments, cardClickHandler }) => (
   <div
     className="card"
     style={{ border: '1px solid black', marginBottom: '15px' }}
-    onClick={props.cardClickHandler}
+    onClick={cardClickHandler}
   >
-    <div className="card__title">{props.name}</div>
-    <div className="card__comments">{props.comments}</div>
+    <div className="card__title">{name}</div>
+    <div className="card__comments">{comments}</div>
   </div>
 );
 

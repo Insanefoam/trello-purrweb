@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const style = {
   position: 'absolute',
@@ -8,12 +8,20 @@ const style = {
   textAlign: 'center',
 };
 
-const LoginForm = ({ changeAuthorNameHandler, submitAuthorNameHandler }) => (
-  <div style={style}>
-    <div>Enter your name:</div>
-    <input type="text" onChange={changeAuthorNameHandler} />
-    <button onClick={submitAuthorNameHandler}>Submit</button>
-  </div>
-);
+export default function LoginForm({ submitUserName }) {
+  const [userName, setUserName] = useState('');
 
-export default LoginForm;
+  const checkUserName = (name) => {
+    if (name.length > 1) {
+      submitUserName(userName);
+    }
+  };
+
+  return (
+    <div style={style}>
+      <div>Enter your name:</div>
+      <input type="text" onChange={(event) => setUserName(event.target.value)} />
+      <button onClick={() => checkUserName(userName)} type="button">Submit</button>
+    </div>
+  );
+}

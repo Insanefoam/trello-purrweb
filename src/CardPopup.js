@@ -52,7 +52,7 @@ export default function CardPopup({
       </div>
       <div>
         {card.author}
-        Author
+        - card Author
       </div>
       <button onClick={deleteCard} type="button">Delete card</button>
       <input className="card-description" value={card.description} onChange={(event) => changeDescription(event.target.value)} />
