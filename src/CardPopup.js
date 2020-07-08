@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropsType from 'prop-types';
 
 const style = {
@@ -12,7 +12,7 @@ const style = {
 export default function CardPopup({
   card, comments, columnName, closeCardPopup,
   changeCardName, deleteCard, changeDescription,
-  changeComment, deleteComment,
+  changeComment, deleteComment, addComment,
 }) {
   const commentsComponents = comments.map((comment) => (
     <div>
@@ -30,6 +30,12 @@ export default function CardPopup({
       </span>
     </div>
   ));
+
+  const [newComment, setNewComment] = useState('');
+  const addNewComment = () => {
+    addComment(newComment);
+    setNewComment('');
+  };
 
   return (
     <div
@@ -51,8 +57,8 @@ export default function CardPopup({
       <input className="card-description" value={card.description} onChange={(event) => changeDescription(event.target.value)} />
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         {commentsComponents}
-        <input className="new-card-input" />
-        <button>Add comment</button>
+        <input className="new-card-input" onChange={(event) => setNewComment(event.target.value)} value={newComment} />
+        <button type="button" onClick={addNewComment}>Add comment</button>
       </div>
     </div>
   );
