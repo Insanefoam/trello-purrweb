@@ -269,6 +269,7 @@ export default function App() {
   };
 
   // TODO: Add UUID
+  // TODO: rename function
   const newCardButtonClickHandler = (columnId, name) => {
     setCards([...cards, {
       cardId: Date.now(), description: '', commentsIds: [], name, columnId,
@@ -295,6 +296,10 @@ export default function App() {
     setClickedCardId(-1);
   };
 
+  const changeDescription = (newDescription) => {
+    setCards([...cards].map((card) => (card.cardId === clickedCardId ? { ...card, description: newDescription } : card)));
+  };
+
   return (
     <div className="container" style={{ fontFamily: 'Montserrat' }}>
       {isCardClicked ? (
@@ -305,6 +310,7 @@ export default function App() {
           closeCardPopup={closeCardPopup}
           changeCardName={changeCardName}
           deleteCard={deleteCard}
+          changeDescription={changeDescription}
         />
       ) : null}
       <div>Hello Author name</div>

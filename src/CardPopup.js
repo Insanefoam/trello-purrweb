@@ -11,8 +11,7 @@ const style = {
 
 export default function CardPopup({
   card, comments, columnName, closeCardPopup,
-  changeCardName,
-  deleteCard,
+  changeCardName, deleteCard, changeDescription,
 }) {
   const commentsComponents = comments.map((el) => (
     <div>
@@ -47,7 +46,7 @@ export default function CardPopup({
         Author
       </div>
       <button onClick={deleteCard} type="button">Delete card</button>
-      <input className="card-description" value={card.description} />
+      <input className="card-description" value={card.description} onChange={(event) => changeDescription(event.target.value)} />
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         {commentsComponents}
         <input className="new-card-input" />
