@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropsType from 'prop-types';
+import Card from './Card';
 
 const style = {
   position: 'absolute',
@@ -40,7 +41,7 @@ export default function CardPopup({
   return (
     <div
       style={style}
-      tabIndex="0"
+      className="card-popup"
     >
       <button onClick={closeCardPopup} type="button">Close</button>
       <input value={card.name} onChange={(event) => changeCardName(event.target.value)} />
@@ -65,5 +66,14 @@ export default function CardPopup({
 }
 
 CardPopup.propTypes = {
-
+  card: PropsType.instanceOf(Card).isRequired,
+  comments: PropsType.arrayOf(PropsType.string).isRequired,
+  columnName: PropsType.string.isRequired,
+  closeCardPopup: PropsType.func.isRequired,
+  changeCardName: PropsType.func.isRequired,
+  deleteCard: PropsType.func.isRequired,
+  changeDescription: PropsType.func.isRequired,
+  changeComment: PropsType.func.isRequired,
+  deleteComment: PropsType.func.isRequired,
+  addComment: PropsType.func.isRequired,
 };

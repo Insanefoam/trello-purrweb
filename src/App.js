@@ -89,6 +89,11 @@ export default function App() {
     setClickedCardId(cardId);
   };
 
+  const getCurrentColumnName = () => {
+    const currentCard = cards.filter((card) => card.cardId === clickedCardId)[0];
+    return columns.filter((column) => column.columnId === currentCard.columnId)[0].title;
+  };
+
   const closeCardPopup = () => {
     setIsCardClicked(!isCardClicked);
     setClickedCardId(-1);
@@ -128,7 +133,7 @@ export default function App() {
         <CardPopup
           card={cards.filter((card) => card.cardId === clickedCardId)[0]}
           comments={comments.filter((comment) => comment.cardId === clickedCardId)}
-          columnName={columns.filter((column) => column.columnId === clickedCardId)[0].title}
+          columnName={getCurrentColumnName()}
           closeCardPopup={closeCardPopup}
           changeCardName={changeCardName}
           deleteCard={deleteCard}
