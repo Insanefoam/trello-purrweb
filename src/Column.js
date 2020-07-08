@@ -1,5 +1,5 @@
-import React from "react";
-import Card from "./Card";
+import React from 'react';
+import Card from './Card';
 
 export default function Column({
   cards,
@@ -9,26 +9,26 @@ export default function Column({
   newCardName,
   addNewCardClickHandler,
 }) {
-  const cardsComponents = cards.map((el, index) => (
+  const cardsComponents = cards.map((el) => (
     <Card
       name={el.name}
       comments={el.commentsIds.length}
-      key={index}
-    //cardClickHandler={props.cardClickHandler.bind(this, index)}
+      key={el.cardId}
+    // cardClickHandler={props.cardClickHandler.bind(this, index)}
     />
   ));
 
   return (
     <div
       className="column"
-      style={{ border: "1px solid black", padding: "20px" }}
+      style={{ border: '1px solid black', padding: '20px' }}
     >
-      <div className="column__title" style={{ marginBottom: "10px" }}>
+      <div className="column__title" style={{ marginBottom: '10px' }}>
         <input
           type="text"
           value={title}
-          onChange={inputTitleChangeHandler}
-        ></input>
+          onChange={(event) => inputTitleChangeHandler(event.target.value)}
+        />
       </div>
       <div className="card-container">
         {cardsComponents}
@@ -36,7 +36,7 @@ export default function Column({
           <input
             onChange={changeNewCardNameHandler}
             value={newCardName}
-          ></input>
+          />
         </div>
         <button onClick={addNewCardClickHandler}>Add another card</button>
       </div>

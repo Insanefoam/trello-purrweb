@@ -260,10 +260,8 @@ export default function App() {
     },
   ]);
 
-  const inputTitleChangeHandler = (index, event) => {
-    let newColumns = [...columns];
-    newColumns[index].title = event.target.value;
-    setColumns(newColumns);
+  const inputTitleChangeHandler = (columnId, title) => {
+    setColumns(columns.map((el) => (el.columnId === columnId ? { columnId, title } : el)));
   };
 
   return (
@@ -279,14 +277,12 @@ export default function App() {
         className="column-wrapper"
         style={{ display: 'flex', justifyContent: 'space-around' }}
       >
-        {columns.map((el, index) => (
+        {columns.map((el) => (
           <Column
             title={el.title}
-            cards={cards.byId.filter((el) => el.columndId === index)}
-            key={index}
-            inputTitleChangeHandler={(event) =>
-              inputTitleChangeHandler(index, event)
-            }
+            cards={cards.byId.filter((card) => card.columndId === el.columnId)}
+            key={el.columnId}
+            inputTitleChangeHandler={(newName) => inputTitleChangeHandler(el.columnId, newName)}
           />
         ))}
       </div>
