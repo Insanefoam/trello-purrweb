@@ -12,7 +12,7 @@ const style = {
 export default function CardPopup({
   card, comments, columnName, closeCardPopup,
   changeCardName, deleteCard, changeDescription,
-  changeComment,
+  changeComment, deleteComment,
 }) {
   const commentsComponents = comments.map((comment) => (
     <div>
@@ -21,7 +21,7 @@ export default function CardPopup({
         style={{ width: '300px' }}
         onChange={(event) => changeComment(comment.commentId, event.target.value)}
       />
-      <button type="button">
+      <button type="button" onClick={() => deleteComment(comment.commentId)}>
         Delete comment
       </button>
       <span>

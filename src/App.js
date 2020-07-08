@@ -112,6 +112,10 @@ export default function App() {
     setComments([...comments].map((comment) => (comment.commentId === id ? { ...comment, name: newComment } : comment)));
   };
 
+  const deleteComment = (id) => {
+    setComments([...comments].filter((comment) => comment.commentId !== id));
+  };
+
   return (
     <div className="container" style={{ fontFamily: 'Montserrat' }}>
       {isCardClicked ? (
@@ -124,6 +128,7 @@ export default function App() {
           deleteCard={deleteCard}
           changeDescription={changeDescription}
           changeComment={changeComment}
+          deleteComment={deleteComment}
         />
       ) : null}
       <div>Hello Author name</div>
