@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import Card from './Card';
 
 export default function Column({
   cards,
   title,
   inputTitleChangeHandler,
-  changeNewCardNameHandler,
-  newCardName,
-  addNewCardClickHandler,
+  newCardButtonClickHandler,
 }) {
   const cardsComponents = cards.map((el) => (
     <Card
@@ -17,6 +16,10 @@ export default function Column({
     // cardClickHandler={props.cardClickHandler.bind(this, index)}
     />
   ));
+
+  const [newCardName, setNewCardName] = useState('');
+
+  const changeNewCardNameHandler = (name) => setNewCardName(name);
 
   return (
     <div
@@ -34,12 +37,27 @@ export default function Column({
         {cardsComponents}
         <div>
           <input
-            onChange={changeNewCardNameHandler}
+            onChange={(event) => changeNewCardNameHandler(event.target.value)}
             value={newCardName}
           />
         </div>
-        <button onClick={addNewCardClickHandler}>Add another card</button>
+        <button
+          type="button"
+          onClick={() => {
+            newCardButtonClickHandler(newCardName);
+            setNewCardName('');
+          }}
+        >
+          Add another card
+        </button>
       </div>
     </div>
   );
 }
+
+Column.propTypes = {
+  cards: PropTypes.arrayOf(PropTypes.instanceOf(Card)).isRequired,
+  title: PropTypes.string.isRequired,
+  inputTitleChangeHandler: PropTypes.func.isRequired,
+  newCardButtonClickHandler: PropTypes.func.isRequired,
+};

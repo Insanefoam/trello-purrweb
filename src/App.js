@@ -207,27 +207,27 @@ export default function App() {
     },
   ]);
 
-  const [cards, setCards] = useState({
-    byId: [
+  const [cards, setCards] = useState(
+    [
       {
         cardId: 0,
         name: 'Watch something',
         description: 'No description',
-        columndId: 0,
+        columnId: 0,
         commentsIds: [0],
       },
       {
         cardId: 1,
         name: 'Eat something',
         description: 'No description',
-        columndId: 0,
+        columnId: 0,
         commentsIds: [1],
       },
       {
         cardId: 2,
         name: 'Todo something',
         description: 'No description',
-        columndId: 1,
+        columnId: 1,
         commentsIds: [2],
       },
       {
@@ -238,8 +238,7 @@ export default function App() {
         commentsIds: [2],
       },
     ],
-    allIds: [0, 1, 2],
-  });
+  );
 
   const [comments, setComments] = useState([
     {
@@ -264,6 +263,13 @@ export default function App() {
     setColumns(columns.map((el) => (el.columnId === columnId ? { columnId, title } : el)));
   };
 
+  // TODO: Add UUID
+  const newCardButtonClickHandler = (columnId, name) => {
+    setCards([...cards, {
+      cardId: Date.now(), description: '', commentsIds: [], name, columnId,
+    }]);
+  };
+
   return (
     <div className="container" style={{ fontFamily: 'Montserrat' }}>
       <div>Hello Author name</div>
@@ -280,9 +286,10 @@ export default function App() {
         {columns.map((el) => (
           <Column
             title={el.title}
-            cards={cards.byId.filter((card) => card.columndId === el.columnId)}
+            cards={cards.filter((card) => card.columnId === el.columnId)}
             key={el.columnId}
             inputTitleChangeHandler={(newName) => inputTitleChangeHandler(el.columnId, newName)}
+            newCardButtonClickHandler={(name) => newCardButtonClickHandler(el.columnId, name)}
           />
         ))}
       </div>
