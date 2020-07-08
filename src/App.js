@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Column from './Column';
 import LoginForm from './LoginForm';
 import CardPopup from './CardPopup';
@@ -15,59 +15,21 @@ export default function App() {
     },
   ]);
 
-  const [cards, setCards] = useState(
-    [
-      {
-        cardId: 0,
-        name: 'Watch something',
-        description: 'No description',
-        author: 'Card Author',
-        columnId: 0,
-      },
-      {
-        cardId: 1,
-        name: 'Eat something',
-        description: 'No description',
-        author: 'Card Author',
-        columnId: 0,
-      },
-      {
-        cardId: 2,
-        name: 'Todo something',
-        description: 'No description',
-        author: 'Card Author',
-        columnId: 1,
-      },
-      {
-        cardId: 3,
-        name: 'Lorem Ipsum',
-        description: 'No description',
-        author: 'Card Author',
-        columnId: 1,
-      },
-    ],
-  );
+  const [cards, setCards] = useState([]);
 
-  const [comments, setComments] = useState([
-    {
-      commentId: 0,
-      author: 'Author',
-      name: 'Ayy lmao',
-      cardId: 0,
-    },
-    {
-      commentId: 1,
-      author: 'Author',
-      name: 'Ogo voteta da',
-      cardId: 1,
-    },
-    {
-      commentId: 2,
-      author: 'Author',
-      name: 'Lorem comment',
-      cardId: 2,
-    },
-  ]);
+  const [comments, setComments] = useState([]);
+
+  useEffect(() => {
+    const rawCards = localStorage.getItem('cards');
+    setCards(JSON.parse(rawCards));
+    const rawComments = localStorage.getItem('comments');
+    setComments(JSON.parse(rawComments));
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('cards', JSON.stringify(cards));
+    localStorage.setItem('comments', JSON.stringify(comments));
+  }, [cards, comments]);
 
   const [isCardClicked, setIsCardClicked] = useState(false);
   const [clickedCardId, setClickedCardId] = useState(-1);

@@ -27,6 +27,6 @@ export default function LoginForm({ submitUserName }) {
   );
 }
 
-LoginForm.propsType = {
+LoginForm.propTypes = {
   submitUserName: PropsType.func.isRequired,
 };
