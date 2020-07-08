@@ -13,6 +13,14 @@ export default function App() {
       columnId: 1,
       title: 'In progress',
     },
+    {
+      columnId: 2,
+      title: 'Testing',
+    },
+    {
+      columnId: 3,
+      title: 'Done',
+    },
   ]);
 
   const [cards, setCards] = useState([]);
@@ -40,7 +48,6 @@ export default function App() {
     setColumns(columns.map((el) => (el.columnId === columnId ? { columnId, title } : el)));
   };
 
-  // TODO: rename function
   const addNewCard = (columnId, name) => {
     setCards([...cards, {
       cardId: Date.now(), description: '', commentsIds: [], name, columnId, author: userName,
@@ -131,7 +138,7 @@ export default function App() {
           <Column
             title={column.title}
             cards={cards.filter((card) => (card.columnId === column.columnId))}
-            comments={cards.filter((card) => (card.columnId === column.columnId)).map((card) => [...comments].filter((comment) => card.cardId === comment.cardId).length)}
+            comments={cards.filter((card) => (card.columnId === column.columnId)).map((card) => comments.filter((comment) => card.cardId === comment.cardId).length)}
             key={column.columnId}
             changeTitle={(newName) => changeTitle(column.columnId, newName)}
             addNewCard={(name) => addNewCard(column.columnId, name)}
