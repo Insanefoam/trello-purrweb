@@ -63,30 +63,30 @@ export default function App() {
   };
 
   const changeCardName = (newName) => {
-    setCards([...cards].map((card) => (card.cardId === clickedCardId ? { ...card, name: newName } : card)));
+    setCards(cards.map((card) => (card.cardId === clickedCardId ? { ...card, name: newName } : card)));
   };
 
   const deleteCard = () => {
-    setCards([...cards].filter((card) => card.cardId !== clickedCardId));
+    setCards(cards.filter((card) => card.cardId !== clickedCardId));
     setIsCardClicked(!isCardClicked);
     setClickedCardId(-1);
   };
 
   const changeDescription = (newDescription) => {
-    setCards([...cards].map((card) => (card.cardId === clickedCardId ? { ...card, description: newDescription } : card)));
+    setCards(cards.map((card) => (card.cardId === clickedCardId ? { ...card, description: newDescription } : card)));
   };
 
   const changeComment = (id, newComment) => {
-    setComments([...comments].map((comment) => (comment.commentId === id ? { ...comment, name: newComment } : comment)));
+    setComments(comments.map((comment) => (comment.commentId === id ? { ...comment, name: newComment } : comment)));
   };
 
   const deleteComment = (id) => {
-    setComments([...comments].filter((comment) => comment.commentId !== id));
+    setComments(comments.filter((comment) => comment.commentId !== id));
   };
 
   const addComment = (name) => {
     setComments([...comments, {
-      commentId: Date.now(), author: { userName }, name, cardId: clickedCardId,
+      commentId: Date.now(), author: userName, name, cardId: clickedCardId,
     }]);
   };
 

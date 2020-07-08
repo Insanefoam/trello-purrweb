@@ -16,7 +16,7 @@ export default function CardPopup({
   changeComment, deleteComment, addComment,
 }) {
   const commentsComponents = comments.map((comment) => (
-    <div>
+    <div key={comment.commentId}>
       <input
         value={comment.name}
         style={{ width: '300px' }}
@@ -33,6 +33,7 @@ export default function CardPopup({
   ));
 
   const [newComment, setNewComment] = useState('');
+
   const addNewComment = () => {
     addComment(newComment);
     setNewComment('');
