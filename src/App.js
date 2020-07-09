@@ -4,6 +4,8 @@ import LoginForm from './LoginForm';
 import CardPopup from './CardPopup';
 
 export default function App() {
+  const [userName, setUserName] = useState(localStorage.getItem('username') || '');
+
   const [columns, setColumns] = useState([
     {
       columnId: 0,
@@ -38,7 +40,6 @@ export default function App() {
 
   const [isModalCardOpen, setModalCardOpen] = useState(false);
   const [selectedCardId, setSelectedCardId] = useState(-1);
-  const [userName, setUserName] = useState('');
 
   const changeTitle = (columnId, title) => {
     setColumns(
@@ -125,6 +126,7 @@ export default function App() {
 
   const submitUserName = (name) => {
     setUserName(name);
+    localStorage.setItem('username', name);
   };
 
   return (
