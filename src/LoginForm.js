@@ -13,7 +13,7 @@ export default function LoginForm({ submitUserName }) {
   const [userName, setUserName] = useState('');
 
   const checkUserName = (name) => {
-    if (name.length > 1) {
+    if (name.length) {
       submitUserName(userName);
     }
   };
