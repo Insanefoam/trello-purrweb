@@ -23,13 +23,17 @@ export default function App() {
     },
   ]);
 
-  const [cards, setCards] = useState(JSON.parse(localStorage.getItem('cards')));
+  const [cards, setCards] = useState(JSON.parse(localStorage.getItem('cards')) || []);
 
-  const [comments, setComments] = useState(JSON.parse(localStorage.getItem('comments')));
+  const [comments, setComments] = useState(JSON.parse(localStorage.getItem('comments')) || []);
 
-  useEffect(() => {
+  const updateLocalStorage = () => {
     localStorage.setItem('cards', JSON.stringify(cards));
     localStorage.setItem('comments', JSON.stringify(comments));
+  };
+
+  useEffect(() => {
+    updateLocalStorage();
   }, [cards, comments]);
 
   const [isModalCardOpen, setModalCardOpen] = useState(false);
@@ -58,7 +62,7 @@ export default function App() {
     ]);
   };
 
-  const cardClickHandler = (cardId) => {
+  const openCardModal = (cardId) => {
     setModalCardOpen(!isModalCardOpen);
     setSelectedCardId(cardId);
   };
@@ -126,7 +130,7 @@ export default function App() {
   return (
     <div className="container" style={{ fontFamily: 'Montserrat' }}>
       {!userName ? <LoginForm submitUserName={submitUserName} /> : null}
-      {isModalCardOpen ? (
+      {isModalCardOpen && (
         <CardPopup
           card={cards.filter((card) => card.cardId === selectedCardId)[0]}
           comments={comments.filter(
@@ -141,7 +145,7 @@ export default function App() {
           deleteComment={deleteComment}
           addComment={addComment}
         />
-      ) : null}
+      )}
       <div>
         Hello
         {userName}
@@ -169,7 +173,7 @@ export default function App() {
             key={column.columnId}
             changeTitle={(newName) => changeTitle(column.columnId, newName)}
             addNewCard={(name) => addNewCard(column.columnId, name)}
-            cardClickHandler={cardClickHandler}
+            openCardModal={openCardModal}
           />
         ))}
       </div>

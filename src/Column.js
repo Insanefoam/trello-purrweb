@@ -8,20 +8,20 @@ export default function Column({
   title,
   changeTitle,
   addNewCard,
-  cardClickHandler,
+  openCardModal,
 }) {
-  const cardsComponents = cards.map((el, index) => (
+  const cardItems = cards.map((el, index) => (
     <Card
       name={el.name}
       comments={comments[index]}
       key={el.cardId}
-      cardClickHandler={() => cardClickHandler(el.cardId)}
+      openCardModal={() => openCardModal(el.cardId)}
     />
   ));
 
   const [newCardName, setNewCardName] = useState('');
 
-  const changeNewCardNameHandler = (name) => setNewCardName(name);
+  const changeCardName = (name) => setNewCardName(name);
 
   return (
     <div
@@ -36,10 +36,10 @@ export default function Column({
         />
       </div>
       <div className="card-container">
-        {cardsComponents}
+        {cardItems}
         <div>
           <input
-            onChange={(event) => changeNewCardNameHandler(event.target.value)}
+            onChange={(event) => changeCardName(event.target.value)}
             value={newCardName}
           />
         </div>
@@ -63,5 +63,5 @@ Column.propTypes = {
   title: PropTypes.string.isRequired,
   changeTitle: PropTypes.func.isRequired,
   addNewCard: PropTypes.func.isRequired,
-  cardClickHandler: PropTypes.func.isRequired,
+  openCardModal: PropTypes.func.isRequired,
 };
