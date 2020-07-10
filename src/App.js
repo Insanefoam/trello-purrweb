@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+
 import Column from './Column';
 import LoginForm from './LoginForm';
 import CardPopup from './CardPopup';
 
-export default function App() {
-  const [userName, setUserName] = useState(localStorage.getItem('username') || '');
+// const mapDispatchToProps = () => undefined;
+import { addNewCardDisp } from './actions/actions';
+
+function App({ cardsReducer, commentsReducer }) {
+  addNewCardDisp('test payload');
+  const [userName, setUserName] = useState(
+    localStorage.getItem('username') || '',
+  );
 
   const [columns, setColumns] = useState([
     {
@@ -25,9 +33,16 @@ export default function App() {
     },
   ]);
 
-  const [cards, setCards] = useState(JSON.parse(localStorage.getItem('cards')) || []);
+  // const [cards, setCards] = useState(
+  //   JSON.parse(localStorage.getItem('cards')) || [],
+  // );
 
-  const [comments, setComments] = useState(JSON.parse(localStorage.getItem('comments')) || []);
+  // const [comments, setComments] = useState(
+  //   JSON.parse(localStorage.getItem('comments')) || [],
+  // );
+
+  const [cards, setCards] = useState(cardsReducer);
+  const [comments, setComments] = useState(commentsReducer);
 
   const updateLocalStorage = () => {
     localStorage.setItem('cards', JSON.stringify(cards));
@@ -55,7 +70,6 @@ export default function App() {
       {
         cardId: Date.now(),
         description: '',
-        commentsIds: [],
         name,
         columnId,
         author: userName,
@@ -163,22 +177,16 @@ export default function App() {
         style={{ display: 'flex', justifyContent: 'space-around' }}
       >
         {columns.map((column) => (
-          <Column
-            title={column.title}
-            cards={cards.filter((card) => card.columnId === column.columnId)}
-            comments={cards
-              .filter((card) => card.columnId === column.columnId)
-              .map(
-                (card) => comments.filter((comment) => card.cardId === comment.cardId)
-                  .length,
-              )}
-            key={column.columnId}
-            changeTitle={(newName) => changeTitle(column.columnId, newName)}
-            addNewCard={(name) => addNewCard(column.columnId, name)}
-            openCardModal={openCardModal}
-          />
+          <Column />
         ))}
       </div>
     </div>
   );
 }
+
+const mapStateToProps = ({ cardsReducer, commentsReducer }) => ({
+  cardsReducer,
+  commentsReducer,
+});
+
+export default connect(mapStateToProps, { addNewCardDisp })(App);

@@ -18,5 +18,5 @@ export default function Card({ name, comments, openCardModal }) {
 Card.propTypes = {
   name: PropsType.string.isRequired,
   comments: PropsType.number.isRequired,
-  cardClickHandler: PropsType.func.isRequired,
+  openCardModal: PropsType.func.isRequired,
 };

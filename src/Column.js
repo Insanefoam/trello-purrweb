@@ -58,7 +58,7 @@ export default function Column({
 }
 
 Column.propTypes = {
-  cards: PropTypes.arrayOf(PropTypes.instanceOf(Card)).isRequired,
+  cards: PropTypes.arrayOf(PropTypes.object).isRequired,
   comments: PropTypes.arrayOf(PropTypes.number).isRequired,
   title: PropTypes.string.isRequired,
   changeTitle: PropTypes.func.isRequired,
