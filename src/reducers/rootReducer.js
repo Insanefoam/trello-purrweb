@@ -1,4 +1,5 @@
 import { combineReducers, createStore } from 'redux';
+import { act } from 'react-dom/test-utils';
 import {
   ADD_CARD,
   DELETE_CARD,
@@ -41,7 +42,7 @@ const mockComments = [
   },
 ];
 
-function cardsReducer(state = mockCards, action) {
+function cards(state = mockCards, action) {
   switch (action.type) {
     case ADD_CARD:
       return [...state, {
@@ -51,18 +52,35 @@ function cardsReducer(state = mockCards, action) {
         description: '',
         name: action.payload.text,
       }];
+    case DELETE_CARD:
+      return state.filter((card) => card.cardId !== action.payload.id);
+    case CHANGE_CARD_NAME:
+      return state.map((card) => (card.cardId === action.payload.id ? { ...card, name: action.payload.name } : card));
+    case CHANGE_CARD_DESCRIPTION:
+      return state.map((card) => (card.cardId === action.payload.id ? { ...card, description: action.payload.description } : card));
     default:
       return state;
   }
 }
 
-function commentsReducer(state = mockComments, action) {
+function comments(state = mockComments, action) {
   switch (action.type) {
+    case ADD_COMMENT:
+      return [...state, {
+        author: 'John Doe',
+        cardId: action.payload.cardId,
+        commentId: Date.now(),
+        name: action.payload.name,
+      }];
+    case DELETE_COMMENT:
+      return state.filter((comment) => comment.commentId !== action.payload.id);
+    case CHANGE_COMMENT:
+      return state.map((comment) => (comment.commentId === action.payload.id ? { ...comment, name: action.payload.name } : comment));
     default:
       return state;
   }
 }
 
-const rootReducer = combineReducers({ cardsReducer, commentsReducer });
+const rootReducer = combineReducers({ cards, comments });
 const store = createStore(rootReducer);
 export default store;

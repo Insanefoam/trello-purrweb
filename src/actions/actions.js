@@ -19,19 +19,19 @@ export const deleteCard = (id) => ({
   payload: id,
 });
 
-export const changeCardName = (id, text) => ({
+export const changeCardName = (id, name) => ({
   type: CHANGE_CARD_NAME,
-  payload: { id, text },
+  payload: { id, name },
 });
 
-export const changeCardDescription = (id, text) => ({
+export const changeCardDescription = (id, description) => ({
   type: CHANGE_CARD_DESCRIPTION,
-  payload: { id, text },
+  payload: { id, description },
 });
 
-export const addComment = (text) => ({
+export const addComment = (cardId, name) => ({
   type: ADD_COMMENT,
-  payload: text,
+  payload: { cardId, name },
 });
 
 export const deleteComment = (id) => ({
@@ -39,12 +39,12 @@ export const deleteComment = (id) => ({
   payload: id,
 });
 
-export const changeComment = (id, text) => ({
+export const changeComment = (id, name) => ({
   type: CHANGE_COMMENT,
-  payload: { id, text },
+  payload: { id, name },
 });
 
-export const changeColumnTitle = (id, text) => ({
+export const changeColumnTitle = (id, name) => ({
   type: CHANGE_COLUMN_TITLE,
-  payload: { id, text },
+  payload: { id, name },
 });
