@@ -44,7 +44,7 @@ const mockComments = [
     author: 'John Doe',
     cardId: 2,
     commentId: 3,
-    name: 'Testing comment 2',
+    name: 'Testing comment 3',
   },
 ];
 

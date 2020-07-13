@@ -17,7 +17,7 @@ export const addCard = (text, columnId) => ({
 
 export const deleteCard = (id) => ({
   type: DELETE_CARD,
-  payload: id,
+  payload: { id },
 });
 
 export const changeCardName = (id, name) => ({
@@ -37,7 +37,7 @@ export const addComment = (cardId, name) => ({
 
 export const deleteComment = (id) => ({
   type: DELETE_COMMENT,
-  payload: id,
+  payload: { id },
 });
 
 export const changeComment = (id, name) => ({
@@ -52,5 +52,5 @@ export const changeColumnTitle = (id, name) => ({
 
 export const openCardModal = (id) => ({
   type: OPEN_CARD_MODAL,
-  payload: id,
+  payload: { id },
 });

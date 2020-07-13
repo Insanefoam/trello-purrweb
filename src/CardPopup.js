@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropsType from 'prop-types';
-import { changeCardName } from './actions/actions';
+import { changeCardName, changeCardDescription, deleteCard } from './actions/actions';
 
 const style = {
   position: 'absolute',
@@ -22,11 +22,10 @@ export default function CardPopup({ id, openCardModal }) {
   const columnName = useSelector(
     (state) => state.columns.filter((column) => column.columnId === columnId)[0].title,
   );
-  const comments = useSelector((state) => state.comments);
+  const comments = useSelector((state) => state.comments.filter((comment) => comment.cardId === id));
   const dispatch = useDispatch();
-  const nameChangeHandler = (name) => dispatch(changeCardName(id, name));
 
-  const commentsComponents = comments.map((comment) => (
+  const commentsItems = comments.map((comment) => (
     <div key={comment.commentId}>
       <input
         value={comment.name}
@@ -50,9 +49,11 @@ export default function CardPopup({ id, openCardModal }) {
     setNewComment('');
   };
 
+  const closeModal = () => openCardModal(0);
+
   return (
     <div style={style} className="card-popup">
-      <button type="button" onClick={() => openCardModal(0)}>
+      <button type="button" onClick={closeModal}>
         Close
       </button>
       <input value={name} onChange={(event) => dispatch(changeCardName(id, event.target.value))} />
@@ -65,10 +66,10 @@ export default function CardPopup({ id, openCardModal }) {
         {author}
         - card Author
       </div>
-      <button onClick type="button">
+      <button onClick={() => { dispatch(deleteCard(id)); closeModal(); }} type="button">
         Delete card
       </button>
-      <input className="card-description" value={description} onChange />
+      <input className="card-description" value={description} onChange={(event) => dispatch(changeCardDescription(id, event.target.value))} />
       <div
         style={{
           display: 'flex',
@@ -76,7 +77,7 @@ export default function CardPopup({ id, openCardModal }) {
           alignItems: 'center',
         }}
       >
-        {commentsComponents}
+        {commentsItems}
         <input
           className="new-card-input"
           onChange={(event) => setNewComment(event.target.value)}
