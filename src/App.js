@@ -33,8 +33,10 @@ export default function App() {
 
   return (
     <div className="container" style={{ fontFamily: 'Montserrat' }}>
-      {!userName ? <LoginForm submitUserName={submitUserName} /> : null}
-      {modalCardId && <CardPopup id={modalCardId} />}
+      {/* {!userName ? <LoginForm submitUserName={submitUserName} /> : null} */}
+      {Boolean(modalCardId) && (
+        <CardPopup id={modalCardId} openCardModal={openCardModal} />
+      )}
       <div>
         Hello
         {' '}

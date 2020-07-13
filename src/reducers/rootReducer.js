@@ -15,14 +15,14 @@ const mockCards = [
     author: 'John Doe',
     cardId: 1,
     columnId: 0,
-    description: '',
+    description: 'Mock description 1',
     name: 'Testing card 1',
   },
   {
     author: 'John Lennon',
     cardId: 2,
     columnId: 1,
-    description: '',
+    description: 'Mock description 2',
     name: 'Testing card 2',
   },
 ];

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropsType from 'prop-types';
-import Card from './Card';
+import { changeCardName } from './actions/actions';
 
 const style = {
   position: 'absolute',
@@ -11,12 +11,20 @@ const style = {
   textAlign: 'center',
 };
 
-export default function CardPopup({ id }) {
+export default function CardPopup({ id, openCardModal }) {
   const {
     author, name, description, columnId,
-  } = { ...useSelector((state) => state.cards.filter((card) => card.cardId === id)[0]) };
-  const columnName = useSelector((state) => state.columns.filter((column) => column.columnId === columnId)[0].title);
+  } = {
+    ...useSelector(
+      (state) => state.cards.filter((card) => card.cardId === id)[0],
+    ),
+  };
+  const columnName = useSelector(
+    (state) => state.columns.filter((column) => column.columnId === columnId)[0].title,
+  );
   const comments = useSelector((state) => state.comments);
+  const dispatch = useDispatch();
+  const nameChangeHandler = (name) => dispatch(changeCardName(id, name));
 
   const commentsComponents = comments.map((comment) => (
     <div key={comment.commentId}>
@@ -44,13 +52,10 @@ export default function CardPopup({ id }) {
 
   return (
     <div style={style} className="card-popup">
-      <button onClick type="button">
+      <button type="button" onClick={() => openCardModal(0)}>
         Close
       </button>
-      <input
-        value={name}
-        onChange
-      />
+      <input value={name} onChange={(event) => dispatch(changeCardName(id, event.target.value))} />
       <div>
         {columnName}
         {' '}
@@ -63,11 +68,7 @@ export default function CardPopup({ id }) {
       <button onClick type="button">
         Delete card
       </button>
-      <input
-        className="card-description"
-        value={description}
-        onChange
-      />
+      <input className="card-description" value={description} onChange />
       <div
         style={{
           display: 'flex',
@@ -90,14 +91,5 @@ export default function CardPopup({ id }) {
 }
 
 CardPopup.propTypes = {
-  card: PropsType.instanceOf(Card).isRequired,
-  comments: PropsType.arrayOf(PropsType.string).isRequired,
-  columnName: PropsType.string.isRequired,
-  closeCardPopup: PropsType.func.isRequired,
-  changeCardName: PropsType.func.isRequired,
-  deleteCard: PropsType.func.isRequired,
-  changeDescription: PropsType.func.isRequired,
-  changeComment: PropsType.func.isRequired,
-  deleteComment: PropsType.func.isRequired,
-  addComment: PropsType.func.isRequired,
+  id: PropsType.number.isRequired,
 };
