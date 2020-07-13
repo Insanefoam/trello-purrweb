@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import Card from './Card';
 
-import { changeColumnTitle, addCard } from './actions/actions';
+import { changeColumnTitle, addCard } from '../actions/actions';
 
 export default function Column({
   title, id, openCardModal,
@@ -31,9 +31,8 @@ export default function Column({
   return (
     <div
       className="column"
-      style={{ border: '1px solid black', padding: '20px' }}
     >
-      <div className="column__title" style={{ marginBottom: '10px' }}>
+      <div className="column__title">
         <input
           type="text"
           value={title}
@@ -42,7 +41,7 @@ export default function Column({
       </div>
       <div className="card-container">
         {cardItems}
-        <div>
+        <div className="newcard-container">
           <input
             onChange={(event) => setNewCardName(event.target.value)}
             value={newCardName}

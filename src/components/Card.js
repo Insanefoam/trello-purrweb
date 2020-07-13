@@ -10,12 +10,11 @@ export default function Card({ name, id, openCardModal }) {
   return (
     <div
       className="card"
-      style={{ border: '1px solid black', marginBottom: '15px' }}
       role="button"
       onClick={() => openCardModal(id)}
     >
       <div className="card__title">{name}</div>
-      <div className="card__comments">{commentsCount}</div>
+      <div className="card__comments"><small>{commentsCount}</small></div>
     </div>
   );
 }

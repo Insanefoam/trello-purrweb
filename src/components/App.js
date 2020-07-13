@@ -21,25 +21,24 @@ export default function App() {
   };
 
   return (
-    <div className="container" style={{ fontFamily: 'Montserrat' }}>
+    <div className="container">
       {!userName ? <LoginForm submitUserName={submitUserName} /> : null}
       {Boolean(modalCardId) && (
         <CardPopup id={modalCardId} openCardModal={openCardModal} />
       )}
-      <div>
+      <div className="title__username">
         Hello
         {' '}
         {userName}
       </div>
       <div
-        className="title"
+        className="title__logo"
         style={{ textAlign: 'center', marginBottom: '30px' }}
       >
         Trello
       </div>
       <div
         className="column-wrapper"
-        style={{ display: 'flex', justifyContent: 'space-around' }}
       >
         {columns.map((column) => (
           <Column

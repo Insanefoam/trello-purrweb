@@ -1,0 +1,65 @@
+.container {
+  font-family: "Montserrat";
+}
+
+.title__username,
+.title__logo {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.column-wrapper {
+  display: flex;
+  justify-content: space-around;
+}
+
+.column {
+  border: 1px solid black;
+  padding: 20px;
+}
+
+.column__title {
+  margin-bottom: 10px;
+}
+
+.column__title input {
+  text-align: center;
+  border: none;
+  font-size: 17px;
+}
+
+.card {
+  border: 1px solid black;
+  margin-bottom: 15px;
+}
+
+.card__title {
+  text-align: center;
+}
+
+.card__comments {
+  text-align: center;
+}
+
+.card-popup {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #6162af;
+  text-align: center;
+}
+
+.comments-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.username-modal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: red;
+  text-align: center;
+}

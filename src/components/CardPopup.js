@@ -8,15 +8,7 @@ import {
   changeComment,
   deleteComment,
   addComment,
-} from './actions/actions';
-
-const style = {
-  position: 'absolute',
-  width: '100%',
-  height: '100%',
-  backgroundColor: 'red',
-  textAlign: 'center',
-};
+} from '../actions/actions';
 
 export default function CardPopup({ id, openCardModal }) {
   const {
@@ -62,9 +54,9 @@ export default function CardPopup({ id, openCardModal }) {
   const closeModal = () => openCardModal(0);
 
   return (
-    <div style={style} className="card-popup">
+    <div className="card-popup">
       <button type="button" onClick={closeModal}>
-        Close
+        &times;
       </button>
       <input
         value={name}
@@ -93,13 +85,7 @@ export default function CardPopup({ id, openCardModal }) {
         value={description}
         onChange={(event) => dispatch(changeCardDescription(id, event.target.value))}
       />
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
+      <div className="comments-container">
         {commentsItems}
         <input
           className="new-card-input"
