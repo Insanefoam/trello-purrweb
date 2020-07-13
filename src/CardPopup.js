@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropsType from 'prop-types';
 import {
-  changeCardName, changeCardDescription, deleteCard, changeComment, deleteComment,
+  changeCardName, changeCardDescription, deleteCard, changeComment, deleteComment, addComment,
 } from './actions/actions';
 
 const style = {
@@ -32,9 +32,9 @@ export default function CardPopup({ id, openCardModal }) {
       <input
         value={comment.name}
         style={{ width: '300px' }}
-        onChange={(event) => dispatch(changeComment(id, event.target.value))}
+        onChange={(event) => dispatch(changeComment(comment.commentId, event.target.value))}
       />
-      <button type="button" onClick={() => dispatch(deleteComment(id))}>
+      <button type="button" onClick={() => dispatch(deleteComment(comment.commentId))}>
         Delete comment
       </button>
       <span>
@@ -47,7 +47,7 @@ export default function CardPopup({ id, openCardModal }) {
   const [newComment, setNewComment] = useState('');
 
   const addNewComment = () => {
-    // addComment(newComment);
+    dispatch(addComment(id, newComment));
     setNewComment('');
   };
 
