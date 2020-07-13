@@ -1,14 +1,6 @@
 import React, { useState } from 'react';
 import PropsType from 'prop-types';
 
-const style = {
-  position: 'absolute',
-  width: '100%',
-  height: '100%',
-  backgroundColor: 'red',
-  textAlign: 'center',
-};
-
 export default function LoginForm({ submitUserName }) {
   const [userName, setUserName] = useState('');
 
@@ -19,7 +11,7 @@ export default function LoginForm({ submitUserName }) {
   };
 
   return (
-    <div style={style}>
+    <div className="username-modal">
       <div>Enter your name:</div>
       <input type="text" onChange={(event) => setUserName(event.target.value)} />
       <button onClick={() => checkUserName(userName)} type="button">Submit</button>
