@@ -1,30 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-
 import Column from './Column';
 import LoginForm from './LoginForm';
 import CardPopup from './CardPopup';
 
 export default function App() {
-  const [userName, setUserName] = useState(
-    localStorage.getItem('username') || '',
-  );
-
   const columns = useSelector((state) => state.columns);
-  // const updateLocalStorage = () => {
-  //   localStorage.setItem('cards', JSON.stringify(cards));
-  //   localStorage.setItem('comments', JSON.stringify(comments));
-  // };
-
-  // useEffect(() => {
-  //   updateLocalStorage();
-  // }, [cards, comments]);
 
   const [modalCardId, setModalCardId] = useState(0);
 
   const openCardModal = (cardId) => {
     setModalCardId(cardId);
   };
+
+  const [userName, setUserName] = useState(localStorage.getItem('username'));
 
   const submitUserName = (name) => {
     setUserName(name);
@@ -33,7 +22,7 @@ export default function App() {
 
   return (
     <div className="container" style={{ fontFamily: 'Montserrat' }}>
-      {/* {!userName ? <LoginForm submitUserName={submitUserName} /> : null} */}
+      {!userName ? <LoginForm submitUserName={submitUserName} /> : null}
       {Boolean(modalCardId) && (
         <CardPopup id={modalCardId} openCardModal={openCardModal} />
       )}

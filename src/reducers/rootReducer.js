@@ -67,13 +67,13 @@ const mockColumns = [
   },
 ];
 
-function cards(state = mockCards, { type, payload }) {
+function cards(state = JSON.parse(localStorage.getItem('cards')) || mockCards, { type, payload }) {
   switch (type) {
     case ADD_CARD:
       return [
         ...state,
         {
-          author: 'John Doe',
+          author: localStorage.getItem('username'),
           cardId: Date.now(),
           columnId: payload.columnId,
           description: '',
@@ -95,13 +95,13 @@ function cards(state = mockCards, { type, payload }) {
   }
 }
 
-function comments(state = mockComments, { type, payload }) {
+function comments(state = JSON.parse(localStorage.getItem('comments')) || mockComments, { type, payload }) {
   switch (type) {
     case ADD_COMMENT:
       return [
         ...state,
         {
-          author: 'John Doe',
+          author: localStorage.getItem('username'),
           cardId: payload.cardId,
           commentId: Date.now(),
           name: payload.name,
@@ -118,7 +118,7 @@ function comments(state = mockComments, { type, payload }) {
   }
 }
 
-function columns(state = mockColumns, { type, payload }) {
+function columns(state = JSON.parse(localStorage.getItem('columns')) || mockColumns, { type, payload }) {
   if (type === CHANGE_COLUMN_TITLE) {
     return state.map((column) => (column.columnId === payload.id
       ? { ...column, title: payload.name }

@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropsType from 'prop-types';
 import {
-  changeCardName, changeCardDescription, deleteCard, changeComment, deleteComment, addComment,
+  changeCardName,
+  changeCardDescription,
+  deleteCard,
+  changeComment,
+  deleteComment,
+  addComment,
 } from './actions/actions';
 
 const style = {
@@ -34,7 +39,10 @@ export default function CardPopup({ id, openCardModal }) {
         style={{ width: '300px' }}
         onChange={(event) => dispatch(changeComment(comment.commentId, event.target.value))}
       />
-      <button type="button" onClick={() => dispatch(deleteComment(comment.commentId))}>
+      <button
+        type="button"
+        onClick={() => dispatch(deleteComment(comment.commentId))}
+      >
         Delete comment
       </button>
       <span>
@@ -58,7 +66,10 @@ export default function CardPopup({ id, openCardModal }) {
       <button type="button" onClick={closeModal}>
         Close
       </button>
-      <input value={name} onChange={(event) => dispatch(changeCardName(id, event.target.value))} />
+      <input
+        value={name}
+        onChange={(event) => dispatch(changeCardName(id, event.target.value))}
+      />
       <div>
         {columnName}
         {' '}
@@ -68,10 +79,20 @@ export default function CardPopup({ id, openCardModal }) {
         {author}
         - card Author
       </div>
-      <button onClick={() => { dispatch(deleteCard(id)); closeModal(); }} type="button">
+      <button
+        onClick={() => {
+          dispatch(deleteCard(id));
+          closeModal();
+        }}
+        type="button"
+      >
         Delete card
       </button>
-      <input className="card-description" value={description} onChange={(event) => dispatch(changeCardDescription(id, event.target.value))} />
+      <input
+        className="card-description"
+        value={description}
+        onChange={(event) => dispatch(changeCardDescription(id, event.target.value))}
+      />
       <div
         style={{
           display: 'flex',
@@ -95,4 +116,5 @@ export default function CardPopup({ id, openCardModal }) {
 
 CardPopup.propTypes = {
   id: PropsType.number.isRequired,
+  openCardModal: PropsType.func.isRequired,
 };
