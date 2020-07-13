@@ -7,6 +7,7 @@ import {
   DELETE_COMMENT,
   CHANGE_COMMENT,
   CHANGE_COLUMN_TITLE,
+  OPEN_CARD_MODAL,
 } from './action_types';
 
 export const addCard = (text, columnId) => ({
@@ -47,4 +48,9 @@ export const changeComment = (id, name) => ({
 export const changeColumnTitle = (id, name) => ({
   type: CHANGE_COLUMN_TITLE,
   payload: { id, name },
+});
+
+export const openCardModal = (id) => ({
+  type: OPEN_CARD_MODAL,
+  payload: id,
 });

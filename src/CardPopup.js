@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import PropsType from 'prop-types';
 import Card from './Card';
 
@@ -10,19 +11,21 @@ const style = {
   textAlign: 'center',
 };
 
-export default function CardPopup({
-  card, comments, columnName, closeCardPopup,
-  changeCardName, deleteCard, changeDescription,
-  changeComment, deleteComment, addComment,
-}) {
+export default function CardPopup({ id }) {
+  const {
+    author, name, description, columnId,
+  } = { ...useSelector((state) => state.cards.filter((card) => card.cardId === id)[0]) };
+  const columnName = useSelector((state) => state.columns.filter((column) => column.columnId === columnId)[0].title);
+  const comments = useSelector((state) => state.comments);
+
   const commentsComponents = comments.map((comment) => (
     <div key={comment.commentId}>
       <input
         value={comment.name}
         style={{ width: '300px' }}
-        onChange={(event) => changeComment(comment.commentId, event.target.value)}
+        // onChange={(event) => changeComment(comment.commentId, event.target.value)}
       />
-      <button type="button" onClick={() => deleteComment(comment.commentId)}>
+      <button type="button" onClick>
         Delete comment
       </button>
       <span>
@@ -35,32 +38,52 @@ export default function CardPopup({
   const [newComment, setNewComment] = useState('');
 
   const addNewComment = () => {
-    addComment(newComment);
+    // addComment(newComment);
     setNewComment('');
   };
 
   return (
-    <div
-      style={style}
-      className="card-popup"
-    >
-      <button onClick={closeCardPopup} type="button">Close</button>
-      <input value={card.name} onChange={(event) => changeCardName(event.target.value)} />
+    <div style={style} className="card-popup">
+      <button onClick type="button">
+        Close
+      </button>
+      <input
+        value={name}
+        onChange
+      />
       <div>
         {columnName}
         {' '}
         column
       </div>
       <div>
-        {card.author}
+        {author}
         - card Author
       </div>
-      <button onClick={deleteCard} type="button">Delete card</button>
-      <input className="card-description" value={card.description} onChange={(event) => changeDescription(event.target.value)} />
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <button onClick type="button">
+        Delete card
+      </button>
+      <input
+        className="card-description"
+        value={description}
+        onChange
+      />
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
         {commentsComponents}
-        <input className="new-card-input" onChange={(event) => setNewComment(event.target.value)} value={newComment} />
-        <button type="button" onClick={addNewComment}>Add comment</button>
+        <input
+          className="new-card-input"
+          onChange={(event) => setNewComment(event.target.value)}
+          value={newComment}
+        />
+        <button type="button" onClick={addNewComment}>
+          Add comment
+        </button>
       </div>
     </div>
   );

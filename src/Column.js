@@ -6,13 +6,14 @@ import Card from './Card';
 import { changeColumnTitle, addCard } from './actions/actions';
 
 export default function Column({
-  title, id,
+  title, id, openCardModal,
 }) {
   const cards = useSelector((state) => state.cards.filter((card) => card.columnId === id));
   const cardItems = cards.map((el) => (
     <Card
       name={el.name}
       id={el.cardId}
+      openCardModal={openCardModal}
       key={el.cardId}
     />
   ));
@@ -22,7 +23,6 @@ export default function Column({
   const changeHandler = (name) => dispath(changeColumnTitle(id, name));
 
   const [newCardName, setNewCardName] = useState('');
-  const changeNewCardName = (name) => setNewCardName(name);
   const clickHandler = () => {
     dispath(addCard(newCardName, id));
     setNewCardName('');
@@ -44,7 +44,7 @@ export default function Column({
         {cardItems}
         <div>
           <input
-            onChange={(event) => changeNewCardName(event.target.value)}
+            onChange={(event) => setNewCardName(event.target.value)}
             value={newCardName}
           />
         </div>
@@ -62,4 +62,5 @@ export default function Column({
 Column.propTypes = {
   title: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
+  openCardModal: PropTypes.func.isRequired,
 };

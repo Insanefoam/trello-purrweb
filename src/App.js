@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import Column from './Column';
 import LoginForm from './LoginForm';
 import CardPopup from './CardPopup';
-import { addCard, deleteCard } from './actions/actions';
 
 export default function App() {
   const [userName, setUserName] = useState(
@@ -21,22 +20,11 @@ export default function App() {
   //   updateLocalStorage();
   // }, [cards, comments]);
 
-  const [isModalCardOpen, setModalCardOpen] = useState(false);
-  const [selectedCardId, setSelectedCardId] = useState(-1);
+  const [modalCardId, setModalCardId] = useState(0);
 
-  // const openCardModal = (cardId) => {
-  //   setModalCardOpen(!isModalCardOpen);
-  //   setSelectedCardId(cardId);
-  // };
-
-  // const getCurrentColumnName = () => {
-  //   const currentCard = cards.filter(
-  //     (card) => card.cardId === selectedCardId,
-  //   )[0];
-  //   return columns.filter(
-  //     (column) => column.columnId === currentCard.columnId,
-  //   )[0].title;
-  // };
+  const openCardModal = (cardId) => {
+    setModalCardId(cardId);
+  };
 
   const submitUserName = (name) => {
     setUserName(name);
@@ -46,22 +34,7 @@ export default function App() {
   return (
     <div className="container" style={{ fontFamily: 'Montserrat' }}>
       {!userName ? <LoginForm submitUserName={submitUserName} /> : null}
-      {/* {isModalCardOpen && (
-        <CardPopup
-          card={cards.filter((card) => card.cardId === selectedCardId)[0]}
-          comments={comments.filter(
-            (comment) => comment.cardId === selectedCardId,
-          )}
-          columnName={getCurrentColumnName()}
-          closeCardPopup={closeCardPopup}
-          changeCardName={changeCardName}
-          deleteCard={deleteCard}
-          changeDescription={changeDescription}
-          changeComment={changeComment}
-          deleteComment={deleteComment}
-          addComment={addComment}
-        />
-      )} */}
+      {modalCardId && <CardPopup id={modalCardId} />}
       <div>
         Hello
         {' '}
@@ -81,6 +54,7 @@ export default function App() {
           <Column
             title={column.title}
             id={column.columnId}
+            openCardModal={openCardModal}
             key={column.columnId}
           />
         ))}

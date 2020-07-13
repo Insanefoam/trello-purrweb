@@ -23,7 +23,7 @@ const mockCards = [
     cardId: 2,
     columnId: 1,
     description: '',
-    name: 'Testing card 1',
+    name: 'Testing card 2',
   },
 ];
 
@@ -67,51 +67,51 @@ const mockColumns = [
   },
 ];
 
-function cards(state = mockCards, action) {
-  switch (action.type) {
+function cards(state = mockCards, { type, payload }) {
+  switch (type) {
     case ADD_CARD:
       return [
         ...state,
         {
           author: 'John Doe',
           cardId: Date.now(),
-          columnId: action.payload.columnId,
+          columnId: payload.columnId,
           description: '',
-          name: action.payload.text,
+          name: payload.text,
         },
       ];
     case DELETE_CARD:
-      return state.filter((card) => card.cardId !== action.payload.id);
+      return state.filter((card) => card.cardId !== payload.id);
     case CHANGE_CARD_NAME:
-      return state.map((card) => (card.cardId === action.payload.id
-        ? { ...card, name: action.payload.name }
+      return state.map((card) => (card.cardId === payload.id
+        ? { ...card, name: payload.name }
         : card));
     case CHANGE_CARD_DESCRIPTION:
-      return state.map((card) => (card.cardId === action.payload.id
-        ? { ...card, description: action.payload.description }
+      return state.map((card) => (card.cardId === payload.id
+        ? { ...card, description: payload.description }
         : card));
     default:
       return state;
   }
 }
 
-function comments(state = mockComments, action) {
-  switch (action.type) {
+function comments(state = mockComments, { type, payload }) {
+  switch (type) {
     case ADD_COMMENT:
       return [
         ...state,
         {
           author: 'John Doe',
-          cardId: action.payload.cardId,
+          cardId: payload.cardId,
           commentId: Date.now(),
-          name: action.payload.name,
+          name: payload.name,
         },
       ];
     case DELETE_COMMENT:
-      return state.filter((comment) => comment.commentId !== action.payload.id);
+      return state.filter((comment) => comment.commentId !== payload.id);
     case CHANGE_COMMENT:
-      return state.map((comment) => (comment.commentId === action.payload.id
-        ? { ...comment, name: action.payload.name }
+      return state.map((comment) => (comment.commentId === payload.id
+        ? { ...comment, name: payload.name }
         : comment));
     default:
       return state;
@@ -120,7 +120,9 @@ function comments(state = mockComments, action) {
 
 function columns(state = mockColumns, { type, payload }) {
   if (type === CHANGE_COLUMN_TITLE) {
-    return state.map((column) => (column.columnId === payload.id ? { ...column, title: payload.name } : column));
+    return state.map((column) => (column.columnId === payload.id
+      ? { ...column, title: payload.name }
+      : column));
   }
   return state;
 }
