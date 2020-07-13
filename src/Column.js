@@ -1,27 +1,32 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
 import Card from './Card';
 
+import { changeColumnTitle, addCard } from './actions/actions';
+
 export default function Column({
-  cards,
-  comments,
-  title,
-  changeTitle,
-  addNewCard,
-  openCardModal,
+  title, id,
 }) {
-  const cardItems = cards.map((el, index) => (
+  const cards = useSelector((state) => state.cards.filter((card) => card.columnId === id));
+  const cardItems = cards.map((el) => (
     <Card
       name={el.name}
-      comments={comments[index]}
+      id={el.cardId}
       key={el.cardId}
-      openCardModal={() => openCardModal(el.cardId)}
     />
   ));
 
-  const [newCardName, setNewCardName] = useState('');
+  const dispath = useDispatch();
 
-  const changeCardName = (name) => setNewCardName(name);
+  const changeHandler = (name) => dispath(changeColumnTitle(id, name));
+
+  const [newCardName, setNewCardName] = useState('');
+  const changeNewCardName = (name) => setNewCardName(name);
+  const clickHandler = () => {
+    dispath(addCard(newCardName, id));
+    setNewCardName('');
+  };
 
   return (
     <div
@@ -32,23 +37,20 @@ export default function Column({
         <input
           type="text"
           value={title}
-          onChange={(event) => changeTitle(event.target.value)}
+          onChange={(event) => changeHandler(event.target.value)}
         />
       </div>
       <div className="card-container">
         {cardItems}
         <div>
           <input
-            onChange={(event) => changeCardName(event.target.value)}
+            onChange={(event) => changeNewCardName(event.target.value)}
             value={newCardName}
           />
         </div>
         <button
           type="button"
-          onClick={() => {
-            addNewCard(newCardName);
-            setNewCardName('');
-          }}
+          onClick={clickHandler}
         >
           Add another card
         </button>
@@ -58,10 +60,6 @@ export default function Column({
 }
 
 Column.propTypes = {
-  cards: PropTypes.arrayOf(PropTypes.object).isRequired,
-  comments: PropTypes.arrayOf(PropTypes.number).isRequired,
   title: PropTypes.string.isRequired,
-  changeTitle: PropTypes.func.isRequired,
-  addNewCard: PropTypes.func.isRequired,
-  openCardModal: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
 };
