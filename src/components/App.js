@@ -3,17 +3,14 @@ import { useSelector } from 'react-redux';
 import { getColumns } from '../selectors';
 import Column from './Column';
 import LoginForm from './LoginForm';
-import CardPopup from './CardPopup';
+import CardModal from './CardModal';
 
 // store direct + store configure
-// card popup function to arrow
-// spread card popup
-// inline styles
-// open card modal => close card modal(null)
-// card popup => card modal
+// create store init 2 arg
 // actions directiory => store dir and constants
 // username redux
 // author without localstorage
+
 const App = () => {
   const columns = useSelector(getColumns);
 
@@ -21,6 +18,10 @@ const App = () => {
 
   const openCardModal = (cardId) => {
     setModalCardId(cardId);
+  };
+
+  const closeCardModal = () => {
+    openCardModal(null);
   };
 
   const [userName, setUserName] = useState(localStorage.getItem('username'));
@@ -33,9 +34,8 @@ const App = () => {
   return (
     <div className="container">
       {!userName && <LoginForm submitUserName={submitUserName} />}
-      {Boolean(modalCardId) && (
-        <CardPopup id={modalCardId} openCardModal={openCardModal} />
-      )}
+      {!!modalCardId
+        && <CardModal id={modalCardId} closeCardModal={closeCardModal} />}
       <div className="title__username">
         Hello
         {' '}

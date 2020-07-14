@@ -9,25 +9,20 @@ import {
   changeComment,
   deleteComment,
   addComment,
-} from '../actions/actions';
+} from '../actions';
 
-const CardPopup = ({ id, openCardModal }) => {
+const CardModal = ({ id, closeCardModal }) => {
   const {
     author, name, description, columnId,
-  } = useSelector(
-    (state) => getCard(state, id),
-  );
-  const columnName = useSelector(
-    (state) => getColumnName(state, columnId),
-  );
+  } = useSelector((state) => getCard(state, id));
+  const columnName = useSelector((state) => getColumnName(state, columnId));
   const comments = useSelector((state) => getComments(state, id));
   const dispatch = useDispatch();
 
   const commentsItems = comments.map((comment) => (
-    <div key={comment.commentId}>
+    <div key={comment.commentId} className="comment">
       <input
         value={comment.name}
-        style={{ width: '300px' }}
         onChange={(event) => dispatch(changeComment(comment.commentId, event.target.value))}
       />
       <button
@@ -50,11 +45,9 @@ const CardPopup = ({ id, openCardModal }) => {
     setNewComment('');
   };
 
-  const closeModal = () => openCardModal(0);
-
   return (
     <div className="card-popup">
-      <button type="button" onClick={closeModal}>
+      <button type="button" onClick={closeCardModal}>
         &times;
       </button>
       <input
@@ -73,7 +66,7 @@ const CardPopup = ({ id, openCardModal }) => {
       <button
         onClick={() => {
           dispatch(deleteCard(id));
-          closeModal();
+          closeCardModal();
         }}
         type="button"
       >
@@ -99,9 +92,9 @@ const CardPopup = ({ id, openCardModal }) => {
   );
 };
 
-CardPopup.propTypes = {
+CardModal.propTypes = {
   id: PropsType.number.isRequired,
-  openCardModal: PropsType.func.isRequired,
+  closeCardModal: PropsType.func.isRequired,
 };
 
-export default CardPopup;
+export default CardModal;

@@ -7,7 +7,6 @@ import {
   DELETE_COMMENT,
   CHANGE_COMMENT,
   CHANGE_COLUMN_TITLE,
-  OPEN_CARD_MODAL,
 } from './action_types';
 
 export const addCard = (text, columnId) => ({

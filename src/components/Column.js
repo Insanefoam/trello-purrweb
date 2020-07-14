@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getCards } from '../selectors';
 import Card from './Card';
 
-import { changeColumnTitle, addCard } from '../actions/actions';
+import { changeColumnTitle, addCard } from '../actions';
 
 const Column = ({ title, id, openCardModal }) => {
   const cards = useSelector((state) => getCards(state, id));
