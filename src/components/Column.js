@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
+import { getCards } from '../selectors';
 import Card from './Card';
 
 import { changeColumnTitle, addCard } from '../actions/actions';
@@ -8,7 +9,7 @@ import { changeColumnTitle, addCard } from '../actions/actions';
 export default function Column({
   title, id, openCardModal,
 }) {
-  const cards = useSelector((state) => state.cards.filter((card) => card.columnId === id));
+  const cards = useSelector((state) => getCards(state, id));
   const cardItems = cards.map((el) => (
     <Card
       name={el.name}

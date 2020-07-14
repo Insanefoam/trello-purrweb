@@ -1,10 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import PropsType from 'prop-types';
+import { getCommentsCount } from '../selectors';
 
 export default function Card({ name, id, openCardModal }) {
   const commentsCount = useSelector(
-    (state) => state.comments.filter((comment) => comment.cardId === id).length,
+    (state) => getCommentsCount(state, id),
   );
 
   return (

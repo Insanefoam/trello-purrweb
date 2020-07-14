@@ -1,11 +1,21 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { getColumns } from '../selectors';
 import Column from './Column';
 import LoginForm from './LoginForm';
 import CardPopup from './CardPopup';
 
+// store direct + store configure
+// card popup function to arrow
+// spread card popup
+// inline styles
+// open card modal => close card modal(null)
+// card popup => card modal
+// actions directiory => store dir and constants
+// username redux
+// author without localstorage
 export default function App() {
-  const columns = useSelector((state) => state.columns);
+  const columns = useSelector(getColumns);
 
   const [modalCardId, setModalCardId] = useState(0);
 
@@ -22,7 +32,7 @@ export default function App() {
 
   return (
     <div className="container">
-      {!userName ? <LoginForm submitUserName={submitUserName} /> : null}
+      {!userName && <LoginForm submitUserName={submitUserName} />}
       {Boolean(modalCardId) && (
         <CardPopup id={modalCardId} openCardModal={openCardModal} />
       )}
@@ -33,7 +43,6 @@ export default function App() {
       </div>
       <div
         className="title__logo"
-        style={{ textAlign: 'center', marginBottom: '30px' }}
       >
         Trello
       </div>

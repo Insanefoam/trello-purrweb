@@ -49,8 +49,3 @@ export const changeColumnTitle = (id, name) => ({
   type: CHANGE_COLUMN_TITLE,
   payload: { id, name },
 });
-
-export const openCardModal = (id) => ({
-  type: OPEN_CARD_MODAL,
-  payload: { id },
-});

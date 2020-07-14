@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropsType from 'prop-types';
+import { getCard, getColumnName, getComments } from '../selectors';
 import {
   changeCardName,
   changeCardDescription,
@@ -13,15 +14,13 @@ import {
 export default function CardPopup({ id, openCardModal }) {
   const {
     author, name, description, columnId,
-  } = {
-    ...useSelector(
-      (state) => state.cards.filter((card) => card.cardId === id)[0],
-    ),
-  };
-  const columnName = useSelector(
-    (state) => state.columns.filter((column) => column.columnId === columnId)[0].title,
+  } = useSelector(
+    (state) => getCard(state, id),
   );
-  const comments = useSelector((state) => state.comments.filter((comment) => comment.cardId === id));
+  const columnName = useSelector(
+    (state) => getColumnName(state, columnId),
+  );
+  const comments = useSelector((state) => getComments(state, id));
   const dispatch = useDispatch();
 
   const commentsItems = comments.map((comment) => (
