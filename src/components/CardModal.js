@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import PropsType from 'prop-types';
 import {
   getCard, getColumnName, getComments, getUsername,
-} from '../selectors';
+} from '../store/selectors';
 import {
   changeCardName,
   changeCardDescription,
@@ -11,7 +11,7 @@ import {
   changeComment,
   deleteComment,
   addComment,
-} from '../actions';
+} from '../store/actions';
 
 const CardModal = ({ id, closeCardModal }) => {
   const {

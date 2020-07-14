@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { getCards, getUsername } from '../selectors';
+import { getCards, getUsername } from '../store/selectors';
 import Card from './Card';
 
-import { changeColumnTitle, addCard } from '../actions';
+import { changeColumnTitle, addCard } from '../store/actions';
 
 const Column = ({ title, id, openCardModal }) => {
   const cards = useSelector((state) => getCards(state, id));

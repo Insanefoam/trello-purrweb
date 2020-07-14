@@ -8,7 +8,7 @@ import {
   CHANGE_COMMENT,
   CHANGE_COLUMN_TITLE,
   INIT_USER,
-} from './action_types';
+} from '../constants/action_types';
 
 export const addCard = (text, columnId, author) => ({
   type: ADD_CARD,

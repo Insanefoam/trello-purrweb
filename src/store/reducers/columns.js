@@ -1,6 +1,6 @@
 import {
   CHANGE_COLUMN_TITLE,
-} from '../actions/action_types';
+} from '../constants/action_types';
 
 export default function columns(state = [], { type, payload }) {
   if (type === CHANGE_COLUMN_TITLE) {

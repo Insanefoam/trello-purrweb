@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getColumns, getUsername } from '../selectors';
+import { getColumns, getUsername } from '../store/selectors';
 import Column from './Column';
 import LoginForm from './LoginForm';
 import CardModal from './CardModal';
-import { initUser } from '../actions';
+import { initUser } from '../store/actions';
 
-// store direct + store configure
-// create store init 2 arg
 // actions directiory => store dir and constants
 
 const App = () => {

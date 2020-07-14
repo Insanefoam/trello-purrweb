@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import PropsType from 'prop-types';
-import { getCommentsCount } from '../selectors';
+import { getCommentsCount } from '../store/selectors';
 
 const Card = ({ name, id, openCardModal }) => {
   const commentsCount = useSelector(

@@ -1,4 +1,4 @@
-import { INIT_USER } from '../store/constants/action_types';
+import { INIT_USER } from '../constants/action_types';
 
 export default function auth(state = { username: '' }, { type, payload }) {
   if (type === INIT_USER) { return { username: payload.username }; }

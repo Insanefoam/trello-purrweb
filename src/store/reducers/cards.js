@@ -3,7 +3,7 @@ import {
   DELETE_CARD,
   CHANGE_CARD_NAME,
   CHANGE_CARD_DESCRIPTION,
-} from '../store/constants/action_types';
+} from '../constants/action_types';
 
 export default function cards(state = [], { type, payload }) {
   switch (type) {
