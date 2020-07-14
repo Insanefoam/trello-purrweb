@@ -14,7 +14,7 @@ import CardPopup from './CardPopup';
 // actions directiory => store dir and constants
 // username redux
 // author without localstorage
-export default function App() {
+const App = () => {
   const columns = useSelector(getColumns);
 
   const [modalCardId, setModalCardId] = useState(0);
@@ -60,4 +60,6 @@ export default function App() {
       </div>
     </div>
   );
-}
+};
+
+export default App;

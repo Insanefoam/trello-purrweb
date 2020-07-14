@@ -6,9 +6,7 @@ import Card from './Card';
 
 import { changeColumnTitle, addCard } from '../actions/actions';
 
-export default function Column({
-  title, id, openCardModal,
-}) {
+const Column = ({ title, id, openCardModal }) => {
   const cards = useSelector((state) => getCards(state, id));
   const cardItems = cards.map((el) => (
     <Card
@@ -57,10 +55,12 @@ export default function Column({
       </div>
     </div>
   );
-}
+};
 
 Column.propTypes = {
   title: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   openCardModal: PropTypes.func.isRequired,
 };
+
+export default Column;

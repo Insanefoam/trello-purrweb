@@ -11,7 +11,7 @@ import {
   addComment,
 } from '../actions/actions';
 
-export default function CardPopup({ id, openCardModal }) {
+const CardPopup = ({ id, openCardModal }) => {
   const {
     author, name, description, columnId,
   } = useSelector(
@@ -97,9 +97,11 @@ export default function CardPopup({ id, openCardModal }) {
       </div>
     </div>
   );
-}
+};
 
 CardPopup.propTypes = {
   id: PropsType.number.isRequired,
   openCardModal: PropsType.func.isRequired,
 };
+
+export default CardPopup;
