@@ -16,7 +16,7 @@ const App = () => {
   };
 
   const closeCardModal = () => {
-    openCardModal(null);
+    setModalCardId(null);
   };
 
   const userName = useSelector(getUsername);
