@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { getCards } from '../selectors';
+import { getCards, getUsername } from '../selectors';
 import Card from './Card';
 
 import { changeColumnTitle, addCard } from '../actions';
@@ -16,6 +16,7 @@ const Column = ({ title, id, openCardModal }) => {
       key={el.cardId}
     />
   ));
+  const username = useSelector(getUsername);
 
   const dispath = useDispatch();
 
@@ -23,7 +24,7 @@ const Column = ({ title, id, openCardModal }) => {
 
   const [newCardName, setNewCardName] = useState('');
   const clickHandler = () => {
-    dispath(addCard(newCardName, id));
+    dispath(addCard(newCardName, id, username));
     setNewCardName('');
   };
 

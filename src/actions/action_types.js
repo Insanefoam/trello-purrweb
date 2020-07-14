@@ -9,3 +9,5 @@ export const CHANGE_COMMENT = 'CHANGE_COMMENT';
 
 export const CHANGE_COLUMN_TITLE = 'CHANGE_COLUMN_TITLE';
 export const OPEN_CARD_MODAL = 'OPEN_CARD_MODAL';
+
+export const INIT_USER = 'INIT_USER';

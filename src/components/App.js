@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { getColumns } from '../selectors';
+import { useSelector, useDispatch } from 'react-redux';
+import { getColumns, getUsername } from '../selectors';
 import Column from './Column';
 import LoginForm from './LoginForm';
 import CardModal from './CardModal';
+import { initUser } from '../actions';
 
 // store direct + store configure
 // create store init 2 arg
 // actions directiory => store dir and constants
-// username redux
-// author without localstorage
 
 const App = () => {
+  const dispath = useDispatch();
   const columns = useSelector(getColumns);
-
-  const [modalCardId, setModalCardId] = useState(0);
+  const [modalCardId, setModalCardId] = useState(null);
 
   const openCardModal = (cardId) => {
     setModalCardId(cardId);
@@ -24,11 +23,10 @@ const App = () => {
     openCardModal(null);
   };
 
-  const [userName, setUserName] = useState(localStorage.getItem('username'));
+  const userName = useSelector(getUsername);
 
   const submitUserName = (name) => {
-    setUserName(name);
-    localStorage.setItem('username', name);
+    dispath(initUser(name));
   };
 
   return (

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropsType from 'prop-types';
-import { getCard, getColumnName, getComments } from '../selectors';
+import {
+  getCard, getColumnName, getComments, getUsername,
+} from '../selectors';
 import {
   changeCardName,
   changeCardDescription,
@@ -17,6 +19,7 @@ const CardModal = ({ id, closeCardModal }) => {
   } = useSelector((state) => getCard(state, id));
   const columnName = useSelector((state) => getColumnName(state, columnId));
   const comments = useSelector((state) => getComments(state, id));
+  const username = useSelector(getUsername);
   const dispatch = useDispatch();
 
   const commentsItems = comments.map((comment) => (
@@ -41,7 +44,7 @@ const CardModal = ({ id, closeCardModal }) => {
   const [newComment, setNewComment] = useState('');
 
   const addNewComment = () => {
-    dispatch(addComment(id, newComment));
+    dispatch(addComment(id, newComment, username));
     setNewComment('');
   };
 

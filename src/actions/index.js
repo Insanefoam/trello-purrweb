@@ -7,11 +7,12 @@ import {
   DELETE_COMMENT,
   CHANGE_COMMENT,
   CHANGE_COLUMN_TITLE,
+  INIT_USER,
 } from './action_types';
 
-export const addCard = (text, columnId) => ({
+export const addCard = (text, columnId, author) => ({
   type: ADD_CARD,
-  payload: { text, columnId },
+  payload: { text, columnId, author },
 });
 
 export const deleteCard = (id) => ({
@@ -29,9 +30,9 @@ export const changeCardDescription = (id, description) => ({
   payload: { id, description },
 });
 
-export const addComment = (cardId, name) => ({
+export const addComment = (cardId, name, author) => ({
   type: ADD_COMMENT,
-  payload: { cardId, name },
+  payload: { cardId, name, author },
 });
 
 export const deleteComment = (id) => ({
@@ -47,4 +48,9 @@ export const changeComment = (id, name) => ({
 export const changeColumnTitle = (id, name) => ({
   type: CHANGE_COLUMN_TITLE,
   payload: { id, name },
+});
+
+export const initUser = (username) => ({
+  type: INIT_USER,
+  payload: { username },
 });
