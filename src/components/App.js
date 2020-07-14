@@ -1,31 +1,35 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { getColumns, getUsername } from '../store/selectors';
 import Column from './Column';
 import LoginForm from './LoginForm';
-import CardPopup from './CardPopup';
+import CardModal from './CardModal';
+import { initUser } from '../store/actions';
 
-export default function App() {
-  const columns = useSelector((state) => state.columns);
-
-  const [modalCardId, setModalCardId] = useState(0);
+const App = () => {
+  const dispath = useDispatch();
+  const columns = useSelector(getColumns);
+  const [modalCardId, setModalCardId] = useState(null);
 
   const openCardModal = (cardId) => {
     setModalCardId(cardId);
   };
 
-  const [userName, setUserName] = useState(localStorage.getItem('username'));
+  const closeCardModal = () => {
+    openCardModal(null);
+  };
+
+  const userName = useSelector(getUsername);
 
   const submitUserName = (name) => {
-    setUserName(name);
-    localStorage.setItem('username', name);
+    dispath(initUser(name));
   };
 
   return (
     <div className="container">
-      {!userName ? <LoginForm submitUserName={submitUserName} /> : null}
-      {Boolean(modalCardId) && (
-        <CardPopup id={modalCardId} openCardModal={openCardModal} />
-      )}
+      {!userName && <LoginForm submitUserName={submitUserName} />}
+      {!!modalCardId
+        && <CardModal id={modalCardId} closeCardModal={closeCardModal} />}
       <div className="title__username">
         Hello
         {' '}
@@ -33,7 +37,6 @@ export default function App() {
       </div>
       <div
         className="title__logo"
-        style={{ textAlign: 'center', marginBottom: '30px' }}
       >
         Trello
       </div>
@@ -51,4 +54,6 @@ export default function App() {
       </div>
     </div>
   );
-}
+};
+
+export default App;

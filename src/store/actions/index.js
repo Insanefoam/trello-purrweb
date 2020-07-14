@@ -7,12 +7,12 @@ import {
   DELETE_COMMENT,
   CHANGE_COMMENT,
   CHANGE_COLUMN_TITLE,
-  OPEN_CARD_MODAL,
-} from './action_types';
+  INIT_USER,
+} from '../constants/action_types';
 
-export const addCard = (text, columnId) => ({
+export const addCard = (text, columnId, author) => ({
   type: ADD_CARD,
-  payload: { text, columnId },
+  payload: { text, columnId, author },
 });
 
 export const deleteCard = (id) => ({
@@ -30,9 +30,9 @@ export const changeCardDescription = (id, description) => ({
   payload: { id, description },
 });
 
-export const addComment = (cardId, name) => ({
+export const addComment = (cardId, name, author) => ({
   type: ADD_COMMENT,
-  payload: { cardId, name },
+  payload: { cardId, name, author },
 });
 
 export const deleteComment = (id) => ({
@@ -50,7 +50,7 @@ export const changeColumnTitle = (id, name) => ({
   payload: { id, name },
 });
 
-export const openCardModal = (id) => ({
-  type: OPEN_CARD_MODAL,
-  payload: { id },
+export const initUser = (username) => ({
+  type: INIT_USER,
+  payload: { username },
 });

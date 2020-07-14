@@ -63,3 +63,7 @@
   background-color: red;
   text-align: center;
 }
+
+.comment input {
+  width: 300px;
+}

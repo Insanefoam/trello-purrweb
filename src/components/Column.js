@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
+import { getCards, getUsername } from '../store/selectors';
 import Card from './Card';
 
-import { changeColumnTitle, addCard } from '../actions/actions';
+import { changeColumnTitle, addCard } from '../store/actions';
 
-export default function Column({
-  title, id, openCardModal,
-}) {
-  const cards = useSelector((state) => state.cards.filter((card) => card.columnId === id));
+const Column = ({ title, id, openCardModal }) => {
+  const cards = useSelector((state) => getCards(state, id));
   const cardItems = cards.map((el) => (
     <Card
       name={el.name}
@@ -17,6 +16,7 @@ export default function Column({
       key={el.cardId}
     />
   ));
+  const username = useSelector(getUsername);
 
   const dispath = useDispatch();
 
@@ -24,7 +24,7 @@ export default function Column({
 
   const [newCardName, setNewCardName] = useState('');
   const clickHandler = () => {
-    dispath(addCard(newCardName, id));
+    dispath(addCard(newCardName, id, username));
     setNewCardName('');
   };
 
@@ -56,10 +56,12 @@ export default function Column({
       </div>
     </div>
   );
-}
+};
 
 Column.propTypes = {
   title: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   openCardModal: PropTypes.func.isRequired,
 };
+
+export default Column;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropsType from 'prop-types';
 
-export default function LoginForm({ submitUserName }) {
+const LoginForm = ({ submitUserName }) => {
   const [userName, setUserName] = useState('');
 
   const checkUserName = (name) => {
@@ -17,8 +17,10 @@ export default function LoginForm({ submitUserName }) {
       <button onClick={() => checkUserName(userName)} type="button">Submit</button>
     </div>
   );
-}
+};
 
 LoginForm.propTypes = {
   submitUserName: PropsType.func.isRequired,
 };
+
+export default LoginForm;

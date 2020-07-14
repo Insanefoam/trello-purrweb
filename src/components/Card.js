@@ -1,10 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import PropsType from 'prop-types';
+import { getCommentsCount } from '../store/selectors';
 
-export default function Card({ name, id, openCardModal }) {
+const Card = ({ name, id, openCardModal }) => {
   const commentsCount = useSelector(
-    (state) => state.comments.filter((comment) => comment.cardId === id).length,
+    (state) => getCommentsCount(state, id),
   );
 
   return (
@@ -17,10 +18,12 @@ export default function Card({ name, id, openCardModal }) {
       <div className="card__comments"><small>{commentsCount}</small></div>
     </div>
   );
-}
+};
 
 Card.propTypes = {
   name: PropsType.string.isRequired,
   id: PropsType.number.isRequired,
   openCardModal: PropsType.func.isRequired,
 };
+
+export default Card;

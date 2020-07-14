@@ -2,33 +2,30 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropsType from 'prop-types';
 import {
+  getCard, getColumnName, getComments, getUsername,
+} from '../store/selectors';
+import {
   changeCardName,
   changeCardDescription,
   deleteCard,
   changeComment,
   deleteComment,
   addComment,
-} from '../actions/actions';
+} from '../store/actions';
 
-export default function CardPopup({ id, openCardModal }) {
+const CardModal = ({ id, closeCardModal }) => {
   const {
     author, name, description, columnId,
-  } = {
-    ...useSelector(
-      (state) => state.cards.filter((card) => card.cardId === id)[0],
-    ),
-  };
-  const columnName = useSelector(
-    (state) => state.columns.filter((column) => column.columnId === columnId)[0].title,
-  );
-  const comments = useSelector((state) => state.comments.filter((comment) => comment.cardId === id));
+  } = useSelector((state) => getCard(state, id));
+  const columnName = useSelector((state) => getColumnName(state, columnId));
+  const comments = useSelector((state) => getComments(state, id));
+  const username = useSelector(getUsername);
   const dispatch = useDispatch();
 
   const commentsItems = comments.map((comment) => (
-    <div key={comment.commentId}>
+    <div key={comment.commentId} className="comment">
       <input
         value={comment.name}
-        style={{ width: '300px' }}
         onChange={(event) => dispatch(changeComment(comment.commentId, event.target.value))}
       />
       <button
@@ -47,15 +44,13 @@ export default function CardPopup({ id, openCardModal }) {
   const [newComment, setNewComment] = useState('');
 
   const addNewComment = () => {
-    dispatch(addComment(id, newComment));
+    dispatch(addComment(id, newComment, username));
     setNewComment('');
   };
 
-  const closeModal = () => openCardModal(0);
-
   return (
     <div className="card-popup">
-      <button type="button" onClick={closeModal}>
+      <button type="button" onClick={closeCardModal}>
         &times;
       </button>
       <input
@@ -74,7 +69,7 @@ export default function CardPopup({ id, openCardModal }) {
       <button
         onClick={() => {
           dispatch(deleteCard(id));
-          closeModal();
+          closeCardModal();
         }}
         type="button"
       >
@@ -98,9 +93,11 @@ export default function CardPopup({ id, openCardModal }) {
       </div>
     </div>
   );
-}
-
-CardPopup.propTypes = {
-  id: PropsType.number.isRequired,
-  openCardModal: PropsType.func.isRequired,
 };
+
+CardModal.propTypes = {
+  id: PropsType.number.isRequired,
+  closeCardModal: PropsType.func.isRequired,
+};
+
+export default CardModal;
