@@ -6,8 +6,6 @@ import LoginForm from './LoginForm';
 import CardModal from './CardModal';
 import { initUser } from '../store/actions';
 
-// actions directiory => store dir and constants
-
 const App = () => {
   const dispath = useDispatch();
   const columns = useSelector(getColumns);
